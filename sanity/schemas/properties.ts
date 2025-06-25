@@ -3,7 +3,7 @@ import {defineField, defineType} from 'sanity'
 
 export const properties = defineType({
   name: 'properties',
-  title: 'Product Properties',
+  title: 'Properties',
   description: '製品特性（Rule:必ず評価項目を書き込む）',
   type: 'document',
   fields: [

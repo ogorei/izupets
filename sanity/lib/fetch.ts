@@ -1,5 +1,5 @@
 import {client} from "./utils";
-import { postsQuery, postQuery, categoryListQuery, postsByCategoryQuery, postsByRankingQuery, getProductsQuery } from "./queries";
+import { postsQuery, postQuery, categoryListQuery, postsByCategoryQuery, postsByRankingQuery } from "./queries";
 
 // Fetch all posts
 export async function fetchPost(){
@@ -22,8 +22,4 @@ export async function fetchPostsByCategory(slug: string) {
 export async function fetchPostByRanking() {
   const result = await client.fetch(postsByRankingQuery);
   return result;
-}
-
-export async function fetchProducts(){
-  return client.fetch(getProductsQuery);
 }

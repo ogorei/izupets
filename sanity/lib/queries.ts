@@ -95,57 +95,5 @@ export const postsByRankingQuery = groq`
 }
 `;
 
-export const getProductsQuery = groq`*[_type == "product"] {
-  _id,
-  name,
-  brand,
-  "slug": {
-    "current": slug.current
-  },
-  "category": category->{
-    _id,
-    name
-  },
-  "criteria": criteria->{
-    _id,
-    applicationSmoothness,
-    latheringSpeed,
-    postWashFeel,
-    fluidity,
-    transparency,
-    instantEfficacyFeel,
-    priceCategory,
-    refillAvailability,
-    alcoholFree,
-    allergenFree,
-    parabenFree,
-    sulfateFree,
-    fragranceFree,
-    hypoallergenic,
-    needForTools,
-    travelFriendly,
-    suitableForNormalSkin,
-    suitableForDrySkin,
-    suitableForOilySkin,
-    suitableForCombinationSkin,
-    suitableForSensitiveSkin,
-    waterMerge,
-    greasyTexture,
-    sizeOptions,
-    applicationTime,
-    pH,
-    brandRemovingMakeup,
-    spreadability,
-    siliconeFree,
-    coolingEffect,
-    warmingEffect,
-    refreshingSensation
-  },
-  mainImage,
-  description,
-  body,
-  url
-}`;
-
 
 

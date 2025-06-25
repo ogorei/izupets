@@ -28,5 +28,4 @@ export const structure = (S: any) =>
       S.divider(),
       S.documentTypeListItem('author').title('Author').icon(UsersIcon),
       S.documentTypeListItem('category').title('Categories').icon(PinIcon),
-      S.documentTypeListItem('product').title('Product').icon(PinIcon),
     ]);
