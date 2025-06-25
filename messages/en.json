@@ -1,0 +1,126 @@
+{
+  "Home": {
+    "welcome": "Home",
+    "description": "About Us",
+    "contact": "Contact"
+  },
+  "Common": {
+    "back": "Back"
+  },
+  "Header": {
+    "home": "Home",
+    "about": "Blog",
+    "contact": "Profile",
+    "concierge": "Pet-Friendly Spots"
+  },
+  "Banner": {
+    "title": "Discover Pet-Friendly Adventures in Izu Kogen!",
+    "subtitle": "Your guide to the best pet-friendly restaurants, hotels, parks, and activities in the beautiful Izu Kogen area.",
+    "readMore": "Read more..."
+  },
+  "NewsSection": {
+    "title": "Latest Pet-Friendly Discoveries"
+  },
+  "Sidebar": {
+    "title": "PET ACTIVITIES",
+    "description": "Find the perfect pet-friendly spots for your next adventure.",
+    "button": "Explore More"
+  },
+  "Footer": {
+    "copyright": "© 2025 Izu Pets - Pet-Friendly Travel Guide"
+  },
+  "Concierge": {
+    "title": "Pet-Friendly Spot Finder",
+    "subtitle": "Find the perfect pet-friendly locations tailored to your needs",
+    "filter": "Filter Spots",
+    "noProducts": "No pet-friendly spots found",
+    "expand": "Click to expand",
+    "collapse": "Click to collapse"
+  },
+  "ProductFilter": {
+    "title": "Filter Criteria",
+    "locationType": "Location Type",
+    "restaurant": "Restaurant",
+    "hotel": "Hotel",
+    "park": "Park",
+    "activity": "Activity",
+    "cafe": "Cafe",
+    "beach": "Beach",
+    "hiking": "Hiking Trail",
+    "petStore": "Pet Store",
+    "vet": "Veterinary Clinic",
+    "grooming": "Grooming Salon",
+    "petFeatures": "Pet-Friendly Features",
+    "waterBowls": "Pet Water Bowls",
+    "petTreats": "Pet Treats Available",
+    "petSeating": "Pet-Friendly Seating",
+    "offLeash": "Off-Leash Areas",
+    "wasteBags": "Pet Waste Bags",
+    "friendlyStaff": "Pet-Friendly Staff",
+    "playAreas": "Pet Play Areas",
+    "petAccommodation": "Pet Accommodation",
+    "groomingServices": "Grooming Services",
+    "emergencyServices": "Emergency Services"
+  },
+  "Error": {
+    "title": "Something went wrong!",
+    "tryAgain": "Try again"
+  },
+  "Category": {
+    "notFound": {
+      "title": "Sorry, no result found",
+      "description": "What you searched was unfortunately not found or doesn't exist."
+    }
+  },
+  "ProductCard": {
+    "unnamedProduct": "Unnamed location",
+    "untitled": "Untitled",
+    "more": "More...",
+    "type": "Type",
+    "category": "Category",
+    "noDescription": "No description available",
+    "locationInfo": "Location Information",
+    "overallRating": "Overall Rating",
+    "noRatingData": "No rating data available",
+    "petFees": "Pet Fees",
+    "petRestrictions": "Pet Restrictions",
+    "address": "Address",
+    "phone": "Phone",
+    "website": "Website",
+    "hours": "Hours",
+    "features": "Pet-Friendly Features"
+  },
+  "ProductCriteria": {
+    "rating": "Rating",
+    "petFees": "Pet Fees",
+    "petRestrictions": "Pet Restrictions",
+    "address": "Address",
+    "phoneNumber": "Phone Number",
+    "website": "Website",
+    "operatingHours": "Operating Hours",
+    "petFriendlyFeatures": "Pet-Friendly Features",
+    "waterBowls": "Water Bowls",
+    "petTreats": "Pet Treats",
+    "petSeating": "Pet Seating",
+    "offLeashAreas": "Off-Leash Areas",
+    "wasteBags": "Waste Bags",
+    "friendlyStaff": "Friendly Staff",
+    "playAreas": "Play Areas",
+    "petAccommodation": "Pet Accommodation",
+    "groomingServices": "Grooming Services",
+    "emergencyServices": "Emergency Services",
+    "evaluation": "Evaluation",
+    "low": "Low",
+    "high": "High",
+    "none": "None",
+    "available": "Available",
+    "notAvailable": "Not Available",
+    "free": "Free",
+    "paid": "Paid",
+    "smallDogs": "Small Dogs",
+    "allSizes": "All Sizes",
+    "largeDogs": "Large Dogs",
+    "cats": "Cats",
+    "otherPets": "Other Pets"
+  }
+}

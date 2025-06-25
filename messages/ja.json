@@ -1,0 +1,165 @@
+{
+  "Home": {
+    "welcome": "ホーム",
+    "description": "会社概要",
+    "contact": "お問い合わせ"
+  },
+  "Common": {
+    "back": "戻る"
+  },
+  "Header": {
+    "home": "ホーム",
+    "about": "特集",
+    "contact": "専門家紹介",
+    "concierge": "ペット同伴可能スポット"
+  },
+  "Banner": {
+    "title": "伊豆高原でペットと一緒に素晴らしい冒険を発見しよう！",
+    "subtitle": "美しい伊豆高原エリアのペット同伴可能なレストラン、ホテル、公園、アクティビティのガイドです。",
+    "readMore": "続きを読む..."
+  },
+  "NewsSection": {
+    "title": "最新のペット同伴可能スポット"
+  },
+  "Sidebar": {
+    "title": "ペットアクティビティ",
+    "description": "次の冒険に最適なペット同伴可能スポットを見つけましょう。",
+    "button": "もっと探す"
+  },
+  "Footer": {
+    "copyright": "© 2025 Izu Pets - ペット同伴旅行ガイド"
+  },
+  "AboutPage": {
+    "title": "私たちについて",
+    "description": "ペット愛好家",
+    "name": "伊豆ペットチーム",
+    "background": "伊豆高原エリアのペット同伴可能スポットを調査・紹介しています",
+    "purpose": "インターネット上には様々な情報が存在します。ペット同伴旅行について自身の経験、知識や考えを交えて伝えさせていただければと思います。",
+    "message": "ペットと一緒の旅行がより楽しくなれば嬉しい",
+    "button": "詳しくはこちら",
+    "specialist": "専門家",
+    "introduction": "紹介",
+    "contact": "お問い合わせ",
+    "qualifications": "経歴",
+    "experience1": "ペット同伴旅行：１０年以上",
+    "experience2": "伊豆高原エリア専門調査",
+    "publications": "調査内容",
+    "publications1": "伊豆高原エリアのペット同伴可能スポット調査",
+    "tabs": {
+      "achievements": "実績",
+      "skills": "得意分野",
+      "comments": "著書",
+      "portfolio": "ポートフォリオ"
+    },
+    "period": "期間",
+    "url": "URL",
+    "noArticles": "記事がありません",
+    "career": "伊豆高原エリアのペット同伴可能スポットの調査・紹介、",
+    "noComments": "著書がありません",
+    "sendDirectMessage": "ダイレクトメッセージを送る",
+    "skills": {
+      "title":"テーマ",
+      "skill1": "1. ペット同伴可能スポットの調査",
+      "skill2":"2. 伊豆高原エリアのペット同伴旅行ガイド"
+    }
+  },
+  "categoryPage": {
+    "tag": "タグ",
+    "errorNoCategoryFound": "現在利用可能なカテゴリーはありません。後ほど再度ご確認ください。",
+    "categoryHeader": "カテゴリーを探す"
+  },
+  "Concierge": {
+    "title": "ペット同伴可能スポットを見つける",
+    "subtitle": "あなたのペットに最適なスポットを見つけましょう",
+    "filter": "スポットを絞り込む",
+    "noProducts": "ペット同伴可能スポットが見つかりません",
+    "expand": "クリックして展開",
+    "collapse": "クリックして折りたたむ"
+  },
+  "ProductFilter": {
+    "title": "フィルター条件",
+    "locationType": "場所の種類",
+    "restaurant": "レストラン",
+    "hotel": "ホテル",
+    "park": "公園",
+    "activity": "アクティビティ",
+    "cafe": "カフェ",
+    "beach": "ビーチ",
+    "hiking": "ハイキングコース",
+    "petStore": "ペットショップ",
+    "vet": "動物病院",
+    "grooming": "グルーミングサロン",
+    "petFeatures": "ペット同伴可能な特徴",
+    "waterBowls": "ペット用の水入れ",
+    "petTreats": "ペット用おやつあり",
+    "petSeating": "ペット同伴可能な席",
+    "offLeash": "リードなしエリア",
+    "wasteBags": "ペット用ゴミ袋",
+    "friendlyStaff": "ペットに優しいスタッフ",
+    "playAreas": "ペット遊び場",
+    "petAccommodation": "ペット宿泊可能",
+    "groomingServices": "グルーミングサービス",
+    "emergencyServices": "緊急サービス"
+  },
+  "Error": {
+    "title": "エラーが発生しました！",
+    "tryAgain": "再試行"
+  },
+  "Category": {
+    "notFound": {
+      "title": "申し訳ありません、結果が見つかりませんでした",
+      "description": "お探しの内容は残念ながら見つからないか、存在しない可能性があります。"
+    }
+  },
+  "ProductCard": {
+    "unnamedProduct": "場所名なし",
+    "untitled": "無題",
+    "more": "詳細...",
+    "type": "種類",
+    "category": "カテゴリー",
+    "noDescription": "場所の説明がありません",
+    "locationInfo": "場所の情報",
+    "overallRating": "総合評価",
+    "noRatingData": "評価データがありません",
+    "petFees": "ペット料金",
+    "petRestrictions": "ペット制限",
+    "address": "住所",
+    "phone": "電話番号",
+    "website": "ウェブサイト",
+    "hours": "営業時間",
+    "features": "ペット同伴可能な特徴"
+  },
+  "ProductCriteria": {
+    "rating": "評価",
+    "petFees": "ペット料金",
+    "petRestrictions": "ペット制限",
+    "address": "住所",
+    "phoneNumber": "電話番号",
+    "website": "ウェブサイト",
+    "operatingHours": "営業時間",
+    "petFriendlyFeatures": "ペット同伴可能な特徴",
+    "waterBowls": "水入れ",
+    "petTreats": "ペット用おやつ",
+    "petSeating": "ペット用席",
+    "offLeashAreas": "リードなしエリア",
+    "wasteBags": "ゴミ袋",
+    "friendlyStaff": "優しいスタッフ",
+    "playAreas": "遊び場",
+    "petAccommodation": "ペット宿泊",
+    "groomingServices": "グルーミングサービス",
+    "emergencyServices": "緊急サービス",
+    "evaluation": "評価",
+    "low": "低い",
+    "high": "高い",
+    "none": "なし",
+    "available": "利用可能",
+    "notAvailable": "利用不可",
+    "free": "無料",
+    "paid": "有料",
+    "smallDogs": "小型犬",
+    "allSizes": "全サイズ",
+    "largeDogs": "大型犬",
+    "cats": "猫",
+    "otherPets": "その他のペット"
+  }
+}
