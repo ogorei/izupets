@@ -1,25 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-
-interface FooterProps {
-  logo: string;
-}
-
-export default function Footer ({ logo }: FooterProps) {
+export default function Footer () {
   return (
     <footer className="bg-gray-100 py-6">
       <div className="container mx-auto flex flex-col items-center">
-        {/* Logo */}
-        <div className="mb-4">
-          <Image
-            src={logo}
-            alt="Logo"
-            width={150}
-            height={100}
-            priority
-          />
-        </div>
         {/* Menu Area */}
         <div className="w-full max-w-screen-md">
           <ul className="flex flex-col lg:flex-row justify-center gap-6 text-center">

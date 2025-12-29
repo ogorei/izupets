@@ -16,7 +16,21 @@ import {
   RollerCoaster,
   Kanban,
   ChartScatter,
-  Blend
+  Blend,
+  Building2,
+  Coffee,
+  Plane,
+  Trees,
+  Utensils,
+  Calendar,
+  MapPin,
+  Luggage,
+  Home,
+  Truck,
+  Stethoscope,
+  Dog,
+  BookOpen,
+  Languages
 } from "lucide-react";
 
 export const iconMap: Record<string, React.ElementType> = {
@@ -57,5 +71,20 @@ export const iconMap: Record<string, React.ElementType> = {
   blend: Blend,
   flaskRound: FlaskRound,
   pipetteIcon: PipetteIcon,
-  sprayCan: SprayCan
+  sprayCan: SprayCan,
+  hotel: Building2,
+  coffee: Coffee,
+  travel: Plane,
+  park: Trees,
+  restaurant: Utensils,
+  weekend: Calendar,
+  event: Calendar,
+  map: MapPin,
+  gear: Luggage,
+  accommodation: Home,
+  moving: Truck,
+  services: Stethoscope,
+  dogRun: Dog,
+  stories: BookOpen,
+  bilingual: Languages
 };

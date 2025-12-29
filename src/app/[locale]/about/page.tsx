@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import type { Category } from "../../../../types";
-import { category_jp } from "../../../utils/category";
 import { iconMap } from '@/utils/iconMap';
 import Tabs from '@/components/about/Tabs';
 import { fetchAllCategories, fetchPostByRanking } from '../../../../sanity/lib/fetch';
@@ -41,19 +40,18 @@ export default async function AboutPage({ params }: { params: { locale: string }
           <div className="flex-1 h-0.5 bg-gray-100 ml-4"></div>
         </div>
         <nav className="mt-6">
-          <ul className="grid grid-cols-2 gap-2 auto-rows-min">
+          <ul className="flex flex-col gap-2">
             {categories.map((category: Category) => {
               const IconComponent = iconMap[category?.icon as keyof typeof iconMap];
-              const categoryName = params.locale === "ja" && category_jp[category.name] ? category_jp[category.name] : category.name;
               return (
-                <li key={category.slug.current} className="border hover:bg-categories border-categories flex items-center justify-center gap-2 p-2 transition">
+                <li key={category.slug.current} className="border hover:bg-categories border-categories flex items-center gap-2 p-2 transition">
                   <Link
                     href={`/${params.locale}/category/${category.slug.current}`}
-                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition duration-300 w-auto min-w-0"
+                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition duration-300 w-full"
                   >
                     {IconComponent && <IconComponent className="w-5 h-5 flex-shrink-0" />}
-                    <span className="truncate text-sm sm:text-base text-center">
-                      {categoryName}
+                    <span className="text-sm sm:text-base">
+                      {category.name[params.locale as 'en' | 'ja']}
                     </span>
                   </Link>
                 </li>

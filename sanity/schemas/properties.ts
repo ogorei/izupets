@@ -1,136 +1,214 @@
 import {defineField, defineType} from 'sanity'
-// 製品特性評価
+// ペットフレンドリー施設特性評価
 
 export const properties = defineType({
   name: 'properties',
   title: 'Properties',
-  description: '製品特性（Rule:必ず評価項目を書き込む）',
+  description: 'ペットフレンドリー施設特性（Rule:必ず評価項目を書き込む）',
   type: 'document',
   fields: [
+    // Outdoor and Space Features
     defineField({
-      name: 'coolingEffect',
+      name: 'outdoorSpace',
       type: 'boolean',
-      title: 'Cooling Effect (冷感)',
+      title: 'Outdoor Space (屋外スペース)',
     }),
     defineField({
-      name: 'type',
-      type: 'array',
-      of: [{ type: 'string' }],
-      title: 'Foaming Type (泡立ちタイプ)',
-    }),
-    defineField({
-      name: 'aspect',
-      type: 'array',
-      of: [{ type: 'string' }],
-      title: 'Product Aspect (製品の見た目)',
-    }),
-    defineField({
-      name: 'transparency',
-      type: 'array',
-      of: [{ type: 'string' }],
-      title: 'Product Transparency (透明度)',
-    }),
-    defineField({
-      name: 'pH',
-      type: 'array',
-      of: [{ type: 'string' }],
-      title: 'Product pH (製品のpH)',
-    }),
-    // Boolean type fields(ありなし)
-    defineField({
-      name: 'refillAvailability',
+      name: 'outdoorSeating',
       type: 'boolean',
-      title: 'Refill Availability (詰め替えの可否)',
+      title: 'Outdoor Seating (屋外席)',
     }),
     defineField({
-      name: 'brandRemovingMakeup',
+      name: 'gardenArea',
       type: 'boolean',
-      title: 'Removing Makeup (メイク落とし機能)',
+      title: 'Garden Area (ガーデンエリア)',
     }),
     defineField({
-      name: 'parabenFree',
+      name: 'terrace',
       type: 'boolean',
-      title: 'Paraben-Free (パラベン不使用)',
+      title: 'Terrace (テラス)',
     }),
     defineField({
-      name: 'sulfateFree',
+      name: 'balcony',
       type: 'boolean',
-      title: 'Sulfate-Free (硫酸塩不使用)',
+      title: 'Balcony (バルコニー)',
     }),
     defineField({
-      name: 'siliconeFree',
+      name: 'rooftop',
       type: 'boolean',
-      title: 'Silicone-Free (シリコーン不使用)',
+      title: 'Rooftop Access (屋上利用)',
+    }),
+
+    // Pet-Specific Amenities
+    defineField({
+      name: 'petWaterBowl',
+      type: 'boolean',
+      title: 'Pet Water Bowl (ペット用給水ボウル)',
     }),
     defineField({
-      name: 'fragranceFree',
+      name: 'petTreats',
       type: 'boolean',
-      title: 'Fragrance-Free (香り)',
+      title: 'Pet Treats (ペット用おやつ)',
     }),
     defineField({
-      name: 'alcoholFree',
+      name: 'petMenu',
       type: 'boolean',
-      title: 'Alcohol-Free (アルコール不使用)',
+      title: 'Pet Menu (ペット用メニュー)',
     }),
     defineField({
-      name: 'mineralOilFree',
+      name: 'petToys',
       type: 'boolean',
-      title: 'Mineral Oil-Free (ミネラルオイル不使用)',
+      title: 'Pet Toys (ペット用おもちゃ)',
     }),
     defineField({
-      name: 'allergenFree',
+      name: 'petBedding',
       type: 'boolean',
-      title: 'Allergen-Free (アレルゲンフリー)',
+      title: 'Pet Bedding (ペット用ベッド)',
     }),
     defineField({
-      name: 'nonComedogenic',
+      name: 'petCleaningSupplies',
       type: 'boolean',
-      title: 'Non-Comedogenic (ノンコメドジェニック)',
+      title: 'Pet Cleaning Supplies (ペット用清掃用品)',
     }),
     defineField({
-      name: 'needForTools',
+      name: 'petWasteDisposal',
       type: 'boolean',
-      title: 'Need for Tools (ツールの必要性)',
+      title: 'Pet Waste Disposal (ペット用排泄物処理)',
     }),
     defineField({
-      name: 'suitableForDrySkin',
+      name: 'petShower',
       type: 'boolean',
-      title: 'Suitable for Dry Skin (乾燥肌向け)',
+      title: 'Pet Shower (ペット用シャワー)',
     }),
     defineField({
-      name: 'suitableForOilySkin',
+      name: 'petGrooming',
       type: 'boolean',
-      title: 'Suitable for Oily Skin (脂性肌向け)',
+      title: 'Pet Grooming (ペット用グルーミング)',
+    }),
+
+    // Furniture and Seating Rules
+    defineField({
+      name: 'furnitureRulesRelaxed',
+      type: 'boolean',
+      title: 'Furniture Rules Relaxed (家具ルール緩和)',
     }),
     defineField({
-      name: 'suitableForCombinationSkin',
+      name: 'petsAllowedOnFurniture',
       type: 'boolean',
-      title: 'Suitable for Combination Skin (混合肌向け)',
+      title: 'Pets Allowed on Furniture (家具上でのペット許可)',
     }),
     defineField({
-      name: 'suitableForSensitiveSkin',
+      name: 'petFriendlySeating',
       type: 'boolean',
-      title: 'Suitable for Sensitive Skin (敏感肌向け)',
+      title: 'Pet-Friendly Seating (ペットフレンドリー席)',
     }),
     defineField({
-      name: 'suitableForNormalSkin',
+      name: 'designatedPetAreas',
       type: 'boolean',
-      title: 'Suitable for Normal Skin (普通肌向け)',
+      title: 'Designated Pet Areas (ペット専用エリア)',
+    }),
+
+    // Pet Size and Type Restrictions
+    defineField({
+      name: 'smallPetsOnly',
+      type: 'boolean',
+      title: 'Small Pets Only (小型ペットのみ)',
     }),
     defineField({
-      name: 'suitableForAcneProneSkin',
+      name: 'mediumPetsAllowed',
       type: 'boolean',
-      title: 'Suitable for Acne-Prone Skin (ニキビ肌向け)',
+      title: 'Medium Pets Allowed (中型ペット許可)',
     }),
     defineField({
-      name: 'suitableForAgingSkin',
+      name: 'largePetsAllowed',
       type: 'boolean',
-      title: 'Suitable for Aging Skin (エイジング肌向け)',
+      title: 'Large Pets Allowed (大型ペット許可)',
     }),
     defineField({
-      name: 'scrub',
+      name: 'dogsOnly',
       type: 'boolean',
-      title: 'Contains Scrub (スクラブ入り)',
+      title: 'Dogs Only (犬のみ)',
+    }),
+    defineField({
+      name: 'catsAllowed',
+      type: 'boolean',
+      title: 'Cats Allowed (猫許可)',
+    }),
+    defineField({
+      name: 'otherPetsAllowed',
+      type: 'boolean',
+      title: 'Other Pets Allowed (その他ペット許可)',
+    }),
+
+    // Pet Behavior Requirements
+    defineField({
+      name: 'leashRequired',
+      type: 'boolean',
+      title: 'Leash Required (リード必須)',
+    }),
+    defineField({
+      name: 'wellBehavedPets',
+      type: 'boolean',
+      title: 'Well-Behaved Pets Only (おとなしいペットのみ)',
+    }),
+    defineField({
+      name: 'vaccinationRequired',
+      type: 'boolean',
+      title: 'Vaccination Required (予防接種必須)',
+    }),
+    defineField({
+      name: 'petRegistration',
+      type: 'boolean',
+      title: 'Pet Registration Required (ペット登録必須)',
+    }),
+
+    // Additional Services
+    defineField({
+      name: 'petSitting',
+      type: 'boolean',
+      title: 'Pet Sitting Service (ペットシッターサービス)',
+    }),
+    defineField({
+      name: 'petWalking',
+      type: 'boolean',
+      title: 'Pet Walking Service (ペット散歩サービス)',
+    }),
+    defineField({
+      name: 'petPhotography',
+      type: 'boolean',
+      title: 'Pet Photography (ペット撮影)',
+    }),
+    defineField({
+      name: 'petEvents',
+      type: 'boolean',
+      title: 'Pet Events (ペットイベント)',
+    }),
+    defineField({
+      name: 'petTraining',
+      type: 'boolean',
+      title: 'Pet Training (ペットトレーニング)',
+    }),
+
+    // Accessibility and Safety
+    defineField({
+      name: 'petFirstAid',
+      type: 'boolean',
+      title: 'Pet First Aid Available (ペット救急対応)',
+    }),
+    defineField({
+      name: 'emergencyVetNearby',
+      type: 'boolean',
+      title: 'Emergency Vet Nearby (緊急獣医近隣)',
+    }),
+    defineField({
+      name: 'petInsuranceAccepted',
+      type: 'boolean',
+      title: 'Pet Insurance Accepted (ペット保険対応)',
+    }),
+    defineField({
+      name: 'wheelchairAccessible',
+      type: 'boolean',
+      title: 'Wheelchair Accessible (車椅子対応)',
     }),
   ],
 });

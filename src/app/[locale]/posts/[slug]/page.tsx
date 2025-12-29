@@ -1,5 +1,5 @@
-import type { Article } from "../../../../../types";
-import { fetchPostByRanking, fetchPostBySlug } from "../../../../../sanity/lib/fetch";
+import type { Event } from "../../../../../types";
+import { fetchPostByRanking, fetchPostBySlug, debugRanking } from "../../../../../sanity/lib/fetch";
 import { urlFor } from '../../../../../sanity/lib/utils';
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import { PortableText } from "@portabletext/react";
 import Link from "next/link";
 import type { PortableTextComponents } from '@portabletext/react';
 import BackButton from "@/components/BackButton";
+import { Suspense } from "react";
 
 type Locale = "en" | "ja";
 interface Props {
@@ -73,11 +74,39 @@ const PortableTextComponent: PortableTextComponents = {
   },
 };
 
-export default async function PostDetail({ params }: Props) {
-  const [post, rankedPosts] = await Promise.all([
+// Loading skeleton for single post
+function PostDetailSkeleton() {
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-4">
+        <div className="h-6 bg-gray-200 rounded w-16 animate-pulse"></div>
+      </div>
+      <div className="h-8 bg-gray-200 rounded w-3/4 mb-4 animate-pulse"></div>
+      <div className="h-4 bg-gray-200 rounded w-32 mb-6 animate-pulse"></div>
+      <div className="w-full h-[40vh] bg-gray-200 animate-pulse mb-8"></div>
+      <div className="space-y-4">
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className="h-4 bg-gray-200 rounded animate-pulse"></div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Main post detail content
+async function PostDetailContent({ params }: Props) {
+  const [post, rankedPosts, debugData] = await Promise.all([
     fetchPostBySlug(params.slug),
     fetchPostByRanking(),
-  ]) as [Article | null, Article[]];
+    debugRanking(),
+  ]) as [Event | null, Event[], any[]];
+
+  // Debug logging
+  console.log('Ranked posts data:', rankedPosts);
+  console.log('Ranked posts length:', rankedPosts?.length);
+  console.log('Ranked posts with ranking:', rankedPosts?.filter(p => p.ranking));
+  console.log('Debug ranking data:', debugData);
+  console.log('Debug data length:', debugData?.length);
 
   if (!post) return notFound();
 
@@ -87,27 +116,45 @@ export default async function PostDetail({ params }: Props) {
         Popular Posts
       </h3>
       <div className="space-y-6">
-        {rankedPosts.slice(0, 10).map((rankedPost) => (
-          <div
-            key={rankedPost.slug.current}
-            className="group cursor-pointer transition-transform transform hover:scale-105"
-          >
-            <Link href={`/${params.locale}/posts/${rankedPost.slug.current}`}>
-              {rankedPost.imageURL && (
-                <div className="overflow-hidden">
-                  <img
-                    src={rankedPost.imageURL}
-                    alt={rankedPost.title[params.locale]}
-                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                </div>
-              )}
-              <p className="mt-2 text-center font-medium hover:underline">
-                {rankedPost.title[params.locale]}
-              </p>
-            </Link>
+        {rankedPosts && rankedPosts.length > 0 ? (
+          rankedPosts.slice(0, 5).map((rankedPost) => (
+            <div
+              key={rankedPost.slug.current}
+              className="group cursor-pointer transition-transform transform hover:scale-105"
+            >
+              <Link href={`/${params.locale}/posts/${rankedPost.slug.current}`}>
+                {rankedPost.imageURL && (
+                  <div className="overflow-hidden">
+                    <img
+                      src={rankedPost.imageURL}
+                      alt={rankedPost.title[params.locale] || rankedPost.title.ja || rankedPost.title.en || 'Post image'}
+                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                )}
+                <p className="mt-2 text-center font-medium hover:underline">
+                  {rankedPost.title[params.locale] || rankedPost.title.ja || rankedPost.title.en || 'Untitled'}
+                </p>
+              </Link>
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-gray-500">
+            <p>No popular posts available</p>
+            <p className="text-sm">Debug: {rankedPosts?.length || 0} posts found</p>
+            <p className="text-sm">Debug ranking data: {debugData?.length || 0} events with ranking</p>
+            {debugData && debugData.length > 0 && (
+              <div className="text-xs mt-2">
+                <p>Available rankings:</p>
+                {debugData.slice(0, 3).map((item, index) => (
+                  <p key={index}>
+                    {item.title?.en || item.title?.ja || 'No title'} - Ranking: {item.ranking}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
@@ -116,15 +163,15 @@ export default async function PostDetail({ params }: Props) {
     <PostLayout sidebar={sidebarContent}>
       <article>
         <BackButton />
-        <h1 className="text-xl md:text-3xl font-bold mb-4">{post.title[params.locale]}</h1>
+        <h1 className="text-xl md:text-3xl font-bold mb-4">{post.title[params.locale] || post.title.ja || post.title.en || 'Untitled'}</h1>
         <p className="py-2 text-gray-400 text-xs font-light uppercase">
-          {convertDate(post._createdAt)} • {post.authorName}
+          {post.date ? convertDate(post.date) : convertDate(post._createdAt)} • {post.authorName || 'Anonymous'}
         </p>
         {post.mainImage && (
           <div className="w-full h-[40vh] relative">
             <Image
-              src={post.imageURL}
-              alt={post.mainImage.alt}
+              src={post.imageURL || ''}
+              alt={post.mainImage.alt || post.title[params.locale] || post.title.ja || post.title.en || 'Post image'}
               fill
               className="object-cover"
               priority
@@ -134,12 +181,20 @@ export default async function PostDetail({ params }: Props) {
         {post.body && (
           <div className="leading-relaxed pt-10">
             <PortableText 
-              value={post.body[params.locale]} 
+              value={post.body[params.locale] || post.body.ja || post.body.en || []} 
               components={PortableTextComponent} 
             />
           </div>
         )}
       </article>
     </PostLayout>
+  );
+}
+
+export default function PostDetail({ params }: Props) {
+  return (
+    <Suspense fallback={<PostDetailSkeleton />}>
+      <PostDetailContent key={`${params.locale}-${params.slug}`} params={params} />
+    </Suspense>
   );
 }

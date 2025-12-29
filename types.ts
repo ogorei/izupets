@@ -77,35 +77,142 @@ export interface PetActivityType {
 
 export type PetFriendlyLocation = {
   _id: string;
-  name: {
+  _rev: string;
+  _type: string;
+  _createdAt: string;
+  _updatedAt: string;
+  title: {
     en: string;
     ja: string;
-  };
-  type: {
-    _id: string;
-    name: {
-      en: string;
-      ja: string;
-    } | null;
   };
   slug: {
     _type: string;
     current: string;
   };
-  category: {
-    _id: string;
-    name: {
-      en: string;
-      ja: string;
-    } | null;
-  };
+  placeType: string;
   mainImage?: {
     _type: string;
     asset: {
       _ref: string;
       _type: string;
     };
+    alt?: string;
   };
+  images?: Array<{
+    _type: string;
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+    alt?: string;
+  }>;
+  description?: {
+    en: PortableTextBlock[];
+    ja: PortableTextBlock[];
+  } | null;
+  address?: {
+    en?: string;
+    ja?: string;
+  };
+  contact?: {
+    phone?: string;
+    email?: string;
+    website?: string;
+    socialMedia?: {
+      instagram?: string;
+      facebook?: string;
+      twitter?: string;
+    };
+  };
+  petFriendlyFeatures?: {
+    dogsAllowed?: boolean;
+    catsAllowed?: boolean;
+    otherPetsAllowed?: boolean;
+    sizeRestrictions?: string;
+    leashRequired?: boolean;
+    petFees?: string;
+    petAmenities?: string[];
+    petRules?: string[];
+  };
+  properties?: {
+    _id: string;
+    _type: string;
+    // Add properties fields as needed
+  };
+  hours?: {
+    monday?: string;
+    tuesday?: string;
+    wednesday?: string;
+    thursday?: string;
+    friday?: string;
+    saturday?: string;
+    sunday?: string;
+    notes?: string;
+  };
+  rating?: number;
+  priceRange?: string;
+  featured?: boolean;
+  publishedAt?: string;
+  lastUpdated?: string;
+  imageURL?: string;
+  category?: {
+    _id: string;
+    name?: {
+      en: string;
+      ja: string;
+    } | null;
+    slug?: {
+      current: string;
+    };
+  };
+};
+
+export type Event = {
+  _id: string;
+  _rev: string;
+  _type: string;
+  _createdAt: string;
+  _updatedAt: string;
+  title: {
+    en: string;
+    ja: string;
+  };
+  slug: {
+    current: string;
+  };
+  ranking: number;
+  date?: string;
+  category: {
+    _id: string;
+    name?: {
+      en: string;
+      ja: string;
+    } | null;
+    slug?: {
+      current: string;
+    };
+  };
+  spotType?: string;
+  author?: {
+    _id: string;
+    name?: string;
+  };
+  mainImage?: {
+    _type: "image";
+    alt?: string;
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  } | null;
+  gallery?: Array<{
+    _type: "image";
+    alt?: string;
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+  }>;
   description?: {
     en: PortableTextBlock[];
     ja: PortableTextBlock[];
@@ -114,37 +221,8 @@ export type PetFriendlyLocation = {
     en: PortableTextBlock[];
     ja: PortableTextBlock[];
   } | null;
-  url?: string | null;
-  // Pet-friendly specific fields
-  petFriendlyFeatures: {
-    en: string[];
-    ja: string[];
-  };
-  petSizeRestrictions: {
-    en: string;
-    ja: string;
-  };
-  petFees: {
-    en: string;
-    ja: string;
-  };
-  address: {
-    en: string;
-    ja: string;
-  };
-  phoneNumber: string;
-  website: string;
-  hours: {
-    en: string;
-    ja: string;
-  };
-  rating: number;
-  location: {
-    lat: number;
-    lng: number;
-  };
-  tags: {
-    en: string[];
-    ja: string[];
-  };
+  tags?: string[];
+  url?: string;
+  imageURL?: string;
+  authorName?: string;
 };

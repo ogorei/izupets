@@ -26,6 +26,20 @@ export const structure = (S: any) =>
             .filter('_type == "event" && date < now()')
         ),
       S.divider(),
+      S.listItem()
+        .id('petFriendlyPlaces')
+        .title('Pet-Friendly Places')
+        .schemaType('place')
+        .icon(PinIcon)
+        .child(
+          S.documentList()
+            .title('Pet-Friendly Places')
+            .filter('_type == "place"')
+            .defaultOrdering([{field: 'title.en', direction: 'asc'}])
+        ),
+      S.documentTypeListItem('placeCategory').title('Place Categories').icon(PinIcon),
+      S.divider(),
       S.documentTypeListItem('author').title('Author').icon(UsersIcon),
       S.documentTypeListItem('category').title('Categories').icon(PinIcon),
+      S.documentTypeListItem('properties').title('Properties').icon(PinIcon),
     ]);

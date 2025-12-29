@@ -28,7 +28,7 @@ export default async function LocaleLayout({
 
   // Load i18n messages
   const messages = await getMessages()
-  const logo: string = "/logo-ja.png"
+  const logo: string = "https://i.gyazo.com/0e34c5055672fe91cffe7d348d415ea5.jpg"
 
   return (
     <NextIntlClientProvider messages={messages}>
@@ -37,7 +37,7 @@ export default async function LocaleLayout({
         {children}
         <SanityLive />
       </main>
-      <Footer logo={logo} />
+      <Footer/>
     </NextIntlClientProvider>
   )
 }

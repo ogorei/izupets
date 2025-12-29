@@ -1,4 +1,4 @@
-import ConciergeHero from './ConciergeHero';
+
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -7,7 +7,6 @@ interface LayoutProps {
 export default function ConciergeLayout({ children}: LayoutProps) {
   return (
     <div className="w-full max-w-[1920px] px-4 sm:px-6 md:px-8 lg:px-12 mx-auto">
-      <ConciergeHero />
       {/* Main Content */}
       <main className="w-full">{children}</main>
     </div>

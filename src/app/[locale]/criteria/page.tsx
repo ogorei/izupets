@@ -1,14 +1,18 @@
 import ProductCard from '../../../components/product/ProductCard';
 import { fetchProducts } from "../../../../sanity/lib/fetch";
-import { Product } from "../../../../types";
+import { PetFriendlyLocation } from "../../../../types";
 
-export default async function ProductsPage() {
-  const products: Product[] = await fetchProducts();
+interface Props {
+  params: { locale: string };
+}
+
+export default async function ProductsPage({ params }: Props) {
+  const products: PetFriendlyLocation[] = await fetchProducts();
   if (products.length === 0) {
     return (
       // to change for bilingual phrase possible image
       <div className="w-screen h-screen flex items-center justify-center">
-        <p className="text-gray-600 text-lg">No products available right now.</p>
+        <p className="text-gray-600 text-lg">No places available right now.</p>
       </div>
     );
   }
@@ -22,7 +26,7 @@ export default async function ProductsPage() {
           <section
             key={p._id}
           >
-            <ProductCard product={p} />
+            <ProductCard location={p} locale={params.locale as 'en' | 'ja'} />
           </section>
         ))}
       </div>

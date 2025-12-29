@@ -8,12 +8,14 @@ interface PostCardProps {
   slug: string;
   title: string;
   description?: string;
-  createdAt: string;
+  date?: string;
   authorName?: string | null;
-  imageURL: string;
+  imageURL?: string;
   imageAlt?: string;
   locale: Locale;
   convertDate: (date: string) => string;
+  spotType?: string;
+  tags?: string[];
 }
 
 // Helper function to trim text and add ellipsis
@@ -28,12 +30,14 @@ export default function PostCard({
   slug,
   title,
   description,
-  createdAt,
+  date,
   authorName,
   imageURL,
   imageAlt = 'Post image',
   locale,
   convertDate,
+  spotType,
+  tags,
 }: PostCardProps) {
   const trimmedDescription = trimText(description || '', 100);
 
@@ -43,22 +47,42 @@ export default function PostCard({
       href={`/${locale}/posts/${slug}`}
       className="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow"
     >
-      <Image
-        src={imageURL}
-        alt={imageAlt}
-        width={500}
-        height={300}
-        className="w-full h-48 object-cover"
-        priority
-      />
+      {imageURL && (
+        <Image
+          src={imageURL}
+          alt={imageAlt}
+          width={500}
+          height={300}
+          className="w-full h-48 object-cover"
+          priority
+        />
+      )}
       <div className="p-4">
-        <h3 className="text-lg font-bold text-gray-800">{title}</h3>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-lg font-bold text-gray-800">{title}</h3>
+          {spotType && (
+            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+              {spotType}
+            </span>
+          )}
+        </div>
         <p className="text-sm text-gray-600 mt-2 line-clamp-2">
           {trimmedDescription}
         </p>
-        <p className="text-sm text-gray-500 mt-2">
-          {convertDate(createdAt)} ・ {authorName}
-        </p>
+        <div className="flex items-center justify-between mt-2">
+          <p className="text-sm text-gray-500">
+            {date ? convertDate(date) : ''} {date && authorName && '・'} {authorName}
+          </p>
+          {tags && tags.length > 0 && (
+            <div className="flex gap-1">
+              {tags.slice(0, 2).map((tag, index) => (
+                <span key={index} className="text-xs bg-gray-100 text-gray-600 px-1 py-0.5 rounded">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </Link>
   );

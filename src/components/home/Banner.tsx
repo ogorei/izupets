@@ -1,14 +1,13 @@
 import { useTranslations } from 'next-intl';
 import { PortableText } from '@portabletext/react';
 import { iconMap } from "@/utils/iconMap";
-import type { PetActivityType, PetFriendlySpot } from '../../../types';
+import type { PetActivityType, Event } from '../../../types';
 import Link from 'next/link';
-import { translateCategory } from "@/utils/category";
 
 type Locale = 'en' | 'ja';
 
 interface BannerProps {
-  post: PetFriendlySpot;
+  post: Event;
   locale: Locale;
   categories: PetActivityType[];
 }
@@ -50,17 +49,17 @@ export default function Banner({ post, locale, categories }: BannerProps) {
             <div className="flex-1 h-0.5 bg-petBrown-light ml-4"></div>
           </div>
           <nav className="mt-6">
-            <ul className="grid grid-cols-2 gap-2 auto-rows-min">
+            <ul className="flex flex-col gap-2">
               {categories.map((category: PetActivityType) => {
                 const IconComponent = iconMap[category?.icon as keyof typeof iconMap];
                 return (
-                  <li key={category.slug.current} className="border hover:bg-petGreen-light border-petGreen flex items-center justify-center gap-2 p-2 transition rounded-lg">
+                  <li key={category.slug.current} className="border hover:bg-petGreen-light border-petGreen flex items-center gap-2 p-2 transition rounded-lg">
                     <Link
                       href={`/${locale}/category/${category.slug.current}`}
-                      className="flex items-center gap-2 text-petBrown-dark hover:text-petGreen-dark transition duration-300 w-auto min-w-0"
+                      className="flex items-center gap-2 text-petBrown-dark hover:text-petGreen-dark transition duration-300 w-full"
                     >
                       {IconComponent && <IconComponent className="w-5 h-5 flex-shrink-0" />}
-                      <span className="truncate text-sm sm:text-base text-center">
+                      <span className="text-sm sm:text-base">
                         {category.name[locale]}
                       </span>
                     </Link>

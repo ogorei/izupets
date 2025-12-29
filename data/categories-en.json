@@ -1,0 +1,227 @@
+[
+  {
+    "_id": "1",
+    "name": {
+      "en": "Pet-Friendly Hotels",
+      "ja": "ペットと泊まれるホテル"
+    },
+    "slug": {
+      "current": "pet-friendly-hotels"
+    },
+    "icon": "hotel",
+    "description": {
+      "en": "Reviews and guides to hotels that welcome pets.",
+      "ja": "ペットと一緒に宿泊できるホテルのレビューとガイド。"
+    }
+  },
+  {
+    "_id": "2",
+    "name": {
+      "en": "Dog-Friendly Cafes",
+      "ja": "犬同伴OKのカフェ"
+    },
+    "slug": {
+      "current": "dog-friendly-cafes"
+    },
+    "icon": "coffee",
+    "description": {
+      "en": "Cafes where you can relax with your dog.",
+      "ja": "愛犬と一緒にくつろげるカフェを紹介。"
+    }
+  },
+  {
+    "_id": "3",
+    "name": {
+      "en": "Pet Travel Tips",
+      "ja": "ペットとの旅行ヒント"
+    },
+    "slug": {
+      "current": "pet-travel-tips"
+    },
+    "icon": "travel",
+    "description": {
+      "en": "How to travel safely and comfortably with pets.",
+      "ja": "ペットと快適に旅行するためのアドバイスやコツ。"
+    }
+  },
+  {
+    "_id": "4",
+    "name": {
+      "en": "Nature & Parks",
+      "ja": "自然と公園"
+    },
+    "slug": {
+      "current": "nature-parks"
+    },
+    "icon": "park",
+    "description": {
+      "en": "Outdoor locations like dog parks, trails, and beaches.",
+      "ja": "ドッグランや自然散策コースなど、外で遊べるスポット。"
+    }
+  },
+  {
+    "_id": "5",
+    "name": {
+      "en": "Pet-Friendly Restaurants",
+      "ja": "ペット同伴OKのレストラン"
+    },
+    "slug": {
+      "current": "pet-friendly-restaurants"
+    },
+    "icon": "restaurant",
+    "description": {
+      "en": "Restaurants that allow pets at the table or terrace.",
+      "ja": "ペットと一緒に食事ができるレストランを特集。"
+    }
+  },
+  {
+    "_id": "6",
+    "name": {
+      "en": "Weekend Getaways",
+      "ja": "週末おでかけスポット"
+    },
+    "slug": {
+      "current": "weekend-getaways"
+    },
+    "icon": "weekend",
+    "description": {
+      "en": "Short trips and day trips with pets.",
+      "ja": "ペットと楽しめる週末のおでかけスポット。"
+    }
+  },
+  {
+    "_id": "7",
+    "name": {
+      "en": "Pet Events & Festivals",
+      "ja": "ペットイベント・フェス"
+    },
+    "slug": {
+      "current": "pet-events-festivals"
+    },
+    "icon": "event",
+    "description": {
+      "en": "Upcoming pet-friendly events and festivals.",
+      "ja": "ペットと参加できるイベントやフェス情報。"
+    }
+  },
+  {
+    "_id": "8",
+    "name": {
+      "en": "Local Area Guides",
+      "ja": "地域別ペットスポットガイド"
+    },
+    "slug": {
+      "current": "local-area-guides"
+    },
+    "icon": "map",
+    "description": {
+      "en": "Pet-friendly guides by city or region.",
+      "ja": "地域ごとのペットフレンドリースポットをまとめたガイド。"
+    }
+  },
+  {
+    "_id": "9",
+    "name": {
+      "en": "Pet Travel Gear",
+      "ja": "ペット用お出かけグッズ"
+    },
+    "slug": {
+      "current": "pet-travel-gear"
+    },
+    "icon": "gear",
+    "description": {
+      "en": "Reviews of products useful when traveling with pets.",
+      "ja": "ペットとのお出かけに便利なアイテムの紹介とレビュー。"
+    }
+  },
+  {
+    "_id": "10",
+    "name": {
+      "en": "Pet-Friendly Accommodations",
+      "ja": "ペットOKの宿泊施設"
+    },
+    "slug": {
+      "current": "pet-friendly-accommodations"
+    },
+    "icon": "accommodation",
+    "description": {
+      "en": "Vacation rentals, glamping, or cabins that allow pets.",
+      "ja": "ペット同伴可の貸別荘・グランピング・キャビンなど。"
+    }
+  },
+  {
+    "_id": "11",
+    "name": {
+      "en": "Moving with Pets",
+      "ja": "ペットと引っ越し"
+    },
+    "slug": {
+      "current": "moving-with-pets"
+    },
+    "icon": "moving",
+    "description": {
+      "en": "Tips for finding pet-friendly homes and moving stress-free.",
+      "ja": "ペットと一緒に引っ越す際の注意点や住まい探しのコツ。"
+    }
+  },
+  {
+    "_id": "12",
+    "name": {
+      "en": "Pet Services Nearby",
+      "ja": "近くのペットサービス"
+    },
+    "slug": {
+      "current": "pet-services-nearby"
+    },
+    "icon": "services",
+    "description": {
+      "en": "Find grooming salons, clinics, and pet supply stores.",
+      "ja": "トリミング、動物病院、ペット用品店などの紹介。"
+    }
+  },
+  {
+    "_id": "13",
+    "name": {
+      "en": "Dog Runs & Agility Fields",
+      "ja": "ドッグラン・アジリティ場"
+    },
+    "slug": {
+      "current": "dog-runs-agility-fields"
+    },
+    "icon": "dog-run",
+    "description": {
+      "en": "Locations where dogs can run and train freely.",
+      "ja": "犬が自由に走り回れるドッグランやアジリティ施設。"
+    }
+  },
+  {
+    "_id": "14",
+    "name": {
+      "en": "Pet Owner Stories",
+      "ja": "飼い主さんの体験談"
+    },
+    "slug": {
+      "current": "pet-owner-stories"
+    },
+    "icon": "stories",
+    "description": {
+      "en": "Real-life travel stories and tips from pet owners.",
+      "ja": "ペットと旅行した飼い主さんのリアルな体験談。"
+    }
+  },
+  {
+    "_id": "15",
+    "name": {
+      "en": "Bilingual Spotlights",
+      "ja": "バイリンガルスポット特集"
+    },
+    "slug": {
+      "current": "bilingual-spotlights"
+    },
+    "icon": "bilingual",
+    "description": {
+      "en": "Articles available in both English and Japanese.",
+      "ja": "英語と日本語で読めるバイリンガル対応の記事。"
+    }
+  }
+] 

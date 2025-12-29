@@ -8,9 +8,22 @@ export const categoryType = defineType({
     defineField({
       name: 'name',
       title: 'Name',
-      type: 'string',
+      type: 'object',
+      fields: [
+        {
+          name: 'en',
+          type: 'string',
+          title: 'English Name',
+          validation: Rule => Rule.required().min(2).max(50)
+        },
+        {
+          name: 'ja',
+          type: 'string',
+          title: 'Japanese Name',
+          validation: Rule => Rule.required().min(2).max(50)
+        }
+      ],
       description: 'カテゴリのタイトルを入力してね',
-      validation: Rule => Rule.required().min(2).max(50) // Optional validation
     }),
     defineField({
       name: 'slug',
@@ -18,7 +31,7 @@ export const categoryType = defineType({
       type: 'slug',
       description: 'slugを必ず英文字で書いてね',
       options: {
-        source: 'name',
+        source: 'name.en',
         maxLength: 100,
       },
       validation: Rule => Rule.required() // Ensures slug is always set
@@ -28,9 +41,29 @@ export const categoryType = defineType({
       title: 'Icon',
       type: 'string',
       description: 'LucidaREACT ICONの名前を入力',
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'object',
+      fields: [
+        {
+          name: 'en',
+          type: 'text',
+          title: 'English Description',
+        },
+        {
+          name: 'ja',
+          type: 'text',
+          title: 'Japanese Description',
+        }
+      ],
     })
   ],
   preview: {
-    select: { title: 'name' },
+    select: { 
+      title: 'name.en',
+      subtitle: 'name.ja'
+    },
   },
 })

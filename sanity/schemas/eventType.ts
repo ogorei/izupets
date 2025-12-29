@@ -55,6 +55,22 @@ export const eventType = defineType({
       validation: Rule => Rule.required()
     }),
     defineField({
+      name: 'spotType',
+      type: 'string',
+      title: 'Spot Type',
+      description: '場所の種類（例：カフェ、ホテル、公園など）',
+      options: {
+        list: [
+          { title: 'Cafe', value: 'cafe' },
+          { title: 'Hotel', value: 'hotel' },
+          { title: 'Park', value: 'park' },
+          { title: 'Activity', value: 'activity' },
+          { title: 'Restaurant', value: 'restaurant' },
+          { title: 'Other', value: 'other' }
+        ]
+      }
+    }),
+    defineField({
       name: 'author',
       type: 'reference',
       description: '記事作成者',
@@ -66,8 +82,15 @@ export const eventType = defineType({
       description: '記事の上に載せる画像'
     }),
     defineField({
+      name: 'gallery',
+      type: 'array',
+      title: 'Photo Gallery',
+      of: [{ type: 'image' }],
+      description: '記事に使いたい複数の写真を追加できる'
+    }),
+    defineField({
       name: 'description',
-      description: '記事の詳細をここに書き込む（文字のみ）',
+      description: '記事の紹介文（文字のみ）',
       type: 'object',
       fields: [
         {
@@ -86,7 +109,7 @@ export const eventType = defineType({
     }),
     defineField({
       name: 'body',
-      description: '記事の詳細をここに書き込む（画像なども含む）',
+      description: '記事の本文（画像なども含む）',
       type: 'object',
       fields: [
         {
@@ -132,8 +155,15 @@ export const eventType = defineType({
       ],
     }),
     defineField({
+      name: 'tags',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'タグを追加することで検索しやすくなるよ（例：ペットカフェ、伊豆、犬旅）'
+    }),
+    defineField({
       name: 'url',
       type: 'url',
+      description: '公式サイトや予約ページがあれば追加'
     }),
   ],
 })

@@ -1,12 +1,11 @@
 import HomeLayout from "@/components/home/HomeLayout";
 import { iconMap } from "@/utils/iconMap";
-import { fetchPost, fetchPostByRanking } from "../../../sanity/lib/fetch";
-import type { Category, Article } from "../../../types";
+import { fetchEvents, fetchFeaturedPlaces } from "../../../sanity/lib/fetch";
+import type { PetActivityType, Event, PetFriendlyLocation } from "../../../types";
 import Banner from "../../components/home/Banner";
 import PostCard from "@/components/posts/PostCard";
-import { fetchAllCategories } from "../../../sanity/lib/fetch";
+import { getCategoriesByLocale } from "../../../src/utils/categories";
 import Link from "next/link";
-import { translateCategory } from "@/utils/category";
 import NotFound from "./not-found";
 
 type Locale = 'en' | 'ja';
@@ -31,10 +30,25 @@ const extractPlainText = (blocks: any[]): string => {
 };
 
 export default async function LocalizedHomePage({ params }: Props) {
-  const posts = await fetchPost();
-  const categories = await fetchAllCategories();
-  const rankedPosts = await fetchPostByRanking();
+  const events = await fetchEvents();
+  const categories = getCategoriesByLocale(params.locale);
+  const featuredPlaces = await fetchFeaturedPlaces();
   const pageExists = true;
+
+  console.log('Events fetched:', events.length);
+  console.log('Events data:', JSON.stringify(events, null, 2));
+  
+  // Check each event structure
+  events.forEach((event: Event, index: number) => {
+    console.log(`Event ${index}:`, {
+      id: event._id,
+      title: event.title,
+      slug: event.slug,
+      hasImageURL: !!event.imageURL,
+      hasDate: !!event.date,
+      hasAuthorName: !!event.authorName
+    });
+  });
 
   if (!pageExists) {
     return <NotFound locale={params.locale} />;
@@ -52,18 +66,18 @@ export default async function LocalizedHomePage({ params }: Props) {
           <div className="flex-1 h-0.5 bg-gray-100 ml-4"></div>
         </div>
         <nav className="mt-6">
-          <ul className="grid grid-cols-2 gap-2 auto-rows-min">
-            {categories.map((category: Category) => {
+          <ul className="flex flex-col gap-2">
+            {categories.map((category: PetActivityType) => {
               const IconComponent = iconMap[category?.icon as keyof typeof iconMap];
               return (
-                <li key={category.slug.current} className="border hover:bg-categories border-categories flex items-center justify-center gap-2 p-2 transition">
+                <li key={category.slug.current} className="border hover:bg-categories border-categories flex items-center gap-2 p-2 transition">
                   <Link
                     href={`/${params.locale}/category/${category.slug.current}`}
-                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition duration-300 w-auto min-w-0"
+                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition duration-300 w-full"
                   >
                     {IconComponent && <IconComponent className="w-5 h-5 flex-shrink-0" />}
-                    <span className="truncate text-sm sm:text-base text-center">
-                      {translateCategory(category.name, params.locale)}
+                    <span className="text-sm sm:text-base">
+                      {category.name[params.locale]}
                     </span>
                   </Link>
                 </li>
@@ -73,29 +87,34 @@ export default async function LocalizedHomePage({ params }: Props) {
         </nav>
       </div>
 
-      {/* Ranking Box */}
+      {/* Featured Places Box */}
       <div className="p-4">
         <div className="flex items-center w-full mb-4">
-          <h3 className="text-xl text-gray-500 whitespace-nowrap">TOP POSTS</h3>
+          <h3 className="text-xl text-gray-500 whitespace-nowrap">FEATURED PLACES</h3>
           <div className="flex-1 h-0.5 bg-gray-100 ml-4"></div>
         </div>
         <nav className="mt-6">
           <ul className="space-y-3">
-            {rankedPosts.slice(0, 10).map((post: Article, index: number) => (
-              <li key={post.slug.current} className="border hover:bg-gray-50 p-2 rounded transition">
+            {featuredPlaces.slice(0, 10).map((place: PetFriendlyLocation, index: number) => (
+              <li key={place.slug.current} className="border hover:bg-gray-50 p-2 rounded transition">
                 <Link
-                  href={`/${params.locale}/posts/${post.slug.current}`}
+                  href={`/${params.locale}/places/${place.slug.current}`}
                   className="flex items-center gap-3 text-gray-600 hover:text-accent transition duration-300"
                 >
                   <span className="font-bold text-accent">{index + 1}.</span>
-                  {post.imageURL && (
+                  {place.imageURL && (
                     <img
-                      src={post.imageURL}
-                      alt={post.title[params.locale]}
+                      src={place.imageURL}
+                      alt={place.title[params.locale]}
                       className="w-12 h-12 object-cover rounded"
                     />
                   )}
-                  <span className="truncate text-sm flex-1">{post.title[params.locale]}</span>
+                  <div className="flex-1 min-w-0">
+                    <span className="truncate text-sm block">{place.title[params.locale]}</span>
+                    {place.placeType && (
+                      <span className="text-xs text-gray-500 capitalize">{place.placeType}</span>
+                    )}
+                  </div>
                 </Link>
               </li>
             ))}
@@ -107,25 +126,27 @@ export default async function LocalizedHomePage({ params }: Props) {
 
   return (
     <HomeLayout sidebar={sidebarContent}>
-      {posts.length > 0 && <Banner post={posts[0]} locale={params.locale} categories={categories} />}
+      {events.length > 1 && <Banner post={events[0]} locale={params.locale} categories={categories} />}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {posts.slice(1).map((post: Article) => {
-          const description = post.description?.[params.locale];
+        {events.map((event: Event) => {
+          const description = event.description?.[params.locale];
           const plainTextDescription = description ? extractPlainText(description) : undefined;
 
           return (
             <PostCard
-              key={post._id}
-              id={post._id}
-              slug={post.slug.current}
-              title={post.title[params.locale]}
+              key={event._id}
+              id={event._id}
+              slug={event.slug.current}
+              title={event.title[params.locale]}
               description={plainTextDescription}
-              createdAt={post._createdAt}
-              authorName={post.authorName}
-              imageURL={post.imageURL}
-              imageAlt={post.mainImage?.alt}
+              date={event.date || event._createdAt}
+              authorName={event.authorName}
+              imageURL={event.imageURL}
+              imageAlt={event.mainImage?.alt}
               locale={params.locale}
               convertDate={convertDate}
+              spotType={event.spotType}
+              tags={event.tags}
             />
           );
         })}
