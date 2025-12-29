@@ -3,6 +3,7 @@ import {authorType} from "./authorType"
 import { categoryType } from './categoryType'
 import { properties } from "./properties"
 import { place } from "./place"
+import { placeCategory } from "./placeCategory"
 
 /**
  * Schema Types Export
@@ -19,4 +20,5 @@ export const schemaTypes = [
   categoryType, 
   properties, 
   place,
+  placeCategory,
 ]

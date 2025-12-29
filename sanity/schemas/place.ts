@@ -1,6 +1,8 @@
 import { defineField, defineType } from 'sanity'
 import { hotelDetails } from './categories/hotelDetails'
 import { restaurantDetails } from './categories/restaurantDetails'
+import { contactInfo } from './shared/contactInfo'
+import { petPolicy } from './shared/petPolicy'
 
 /**
  * Place Schema (Simplified)
@@ -63,6 +65,85 @@ export const place = defineType({
     defineField({
       ...restaurantDetails,
       description: 'Restaurant-specific details. Only fill this if the place category is "restaurant".',
+    }),
+
+    // Contact Information
+    defineField({
+      ...contactInfo,
+      description: 'Contact information for this place (phone, email, website, social media).',
+    }),
+
+    // Pet-Friendly Features
+    defineField({
+      ...petPolicy,
+      description: 'Pet-friendly features and policies for this place.',
+    }),
+
+    // Location fields
+    defineField({
+      name: 'address',
+      type: 'object',
+      title: 'Address',
+      fields: [
+        {
+          name: 'en',
+          type: 'string',
+          title: 'English Address',
+        },
+        {
+          name: 'ja',
+          type: 'string',
+          title: 'Japanese Address',
+        },
+        {
+          name: 'full',
+          type: 'string',
+          title: 'Full Address',
+          description: 'Complete address string',
+        },
+      ],
+    }),
+    defineField({
+      name: 'location',
+      type: 'geopoint',
+      title: 'Location',
+      description: 'Geographic coordinates (latitude, longitude)',
+    }),
+    defineField({
+      name: 'openingHours',
+      type: 'object',
+      title: 'Opening Hours',
+      fields: [
+        {
+          name: 'en',
+          type: 'string',
+          title: 'English Opening Hours',
+        },
+        {
+          name: 'ja',
+          type: 'string',
+          title: 'Japanese Opening Hours',
+        },
+      ],
+    }),
+    defineField({
+      name: 'closedDays',
+      type: 'string',
+      title: 'Closed Days',
+      description: 'Days when the place is closed (e.g., "Monday", "月曜日")',
+    }),
+    defineField({
+      name: 'area',
+      type: 'string',
+      title: 'Area/Region',
+      description: 'Geographic area or region (e.g., "南アルプス", "Southern Alps")',
+    }),
+    defineField({
+      name: 'source',
+      type: 'string',
+      title: 'Data Source',
+      description: 'Source of the scraped data (e.g., "izu-wanko", "pet-inu-yado")',
+      readOnly: true,
     }),
   ],
   preview: {

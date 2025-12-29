@@ -195,5 +195,20 @@
     "largeDogs": "Large Dogs",
     "cats": "Cats",
     "otherPets": "Other Pets"
+  },
+  "HeroSearch": {
+    "badge": "Pet-Friendly Travel Guide",
+    "titleLine1": "Discover Pet-Friendly",
+    "titleLine2": "Adventures in Izu Kogen",
+    "subtitle": "Your guide to the best pet-friendly restaurants, hotels, and facilities in the beautiful Izu Kogen area.",
+    "restaurantTab": "Restaurants",
+    "facilitiesTab": "Facilities",
+    "hotelsTab": "Hotels",
+    "placeholder_restaurant": "Search restaurants...",
+    "placeholder_facilities": "Search facilities...",
+    "placeholder_hotels": "Search hotels...",
+    "searchLabel": "Search",
+    "searchButton": "Search",
+    "mapButton": "Browse All Places"
   }
 }

@@ -1,4 +1,5 @@
 import HomeLayout from "@/components/home/HomeLayout";
+import HeroSearch from "@/components/home/HeroSearch";
 import { iconMap } from "@/utils/iconMap";
 import { fetchEvents, fetchFeaturedPlaces } from "../../../sanity/lib/fetch";
 import type { PetActivityType, Event, PetFriendlyLocation } from "../../../types";
@@ -125,32 +126,38 @@ export default async function LocalizedHomePage({ params }: Props) {
   );
 
   return (
-    <HomeLayout sidebar={sidebarContent}>
-      {events.length > 1 && <Banner post={events[0]} locale={params.locale} categories={categories} />}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {events.map((event: Event) => {
-          const description = event.description?.[params.locale];
-          const plainTextDescription = description ? extractPlainText(description) : undefined;
+    <>
+      {/* Hero Search Section */}
+      <HeroSearch locale={params.locale} />
+      
+      {/* Main Content */}
+      <HomeLayout sidebar={sidebarContent}>
+        {events.length > 1 && <Banner post={events[0]} locale={params.locale} categories={categories} />}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {events.map((event: Event) => {
+            const description = event.description?.[params.locale];
+            const plainTextDescription = description ? extractPlainText(description) : undefined;
 
-          return (
-            <PostCard
-              key={event._id}
-              id={event._id}
-              slug={event.slug.current}
-              title={event.title[params.locale]}
-              description={plainTextDescription}
-              date={event.date || event._createdAt}
-              authorName={event.authorName}
-              imageURL={event.imageURL}
-              imageAlt={event.mainImage?.alt}
-              locale={params.locale}
-              convertDate={convertDate}
-              spotType={event.spotType}
-              tags={event.tags}
-            />
-          );
-        })}
-      </div>
-    </HomeLayout>
+            return (
+              <PostCard
+                key={event._id}
+                id={event._id}
+                slug={event.slug.current}
+                title={event.title[params.locale]}
+                description={plainTextDescription}
+                date={event.date || event._createdAt}
+                authorName={event.authorName}
+                imageURL={event.imageURL}
+                imageAlt={event.mainImage?.alt}
+                locale={params.locale}
+                convertDate={convertDate}
+                spotType={event.spotType}
+                tags={event.tags}
+              />
+            );
+          })}
+        </div>
+      </HomeLayout>
+    </>
   )
 }

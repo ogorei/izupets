@@ -62,6 +62,12 @@ export const hotelDetails = {
         ],
       },
     }),
+    defineField({
+      name: 'priceRange',
+      type: 'string',
+      title: 'Price Range',
+      description: 'Price range for accommodation (e.g., "税込 8,800円〜", "From ¥8,800")',
+    }),
   ],
 }
 

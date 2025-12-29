@@ -234,5 +234,20 @@
     "largeDogs": "大型犬",
     "cats": "猫",
     "otherPets": "その他のペット"
+  },
+  "HeroSearch": {
+    "badge": "ペット同伴旅行ガイド",
+    "titleLine1": "伊豆高原で",
+    "titleLine2": "ペットと一緒に素晴らしい冒険を発見",
+    "subtitle": "美しい伊豆高原エリアのペット同伴可能なレストラン、ホテル、施設のガイドです。",
+    "restaurantTab": "レストラン",
+    "facilitiesTab": "施設",
+    "hotelsTab": "ホテル",
+    "placeholder_restaurant": "レストランを検索...",
+    "placeholder_facilities": "施設を検索...",
+    "placeholder_hotels": "ホテルを検索...",
+    "searchLabel": "検索",
+    "searchButton": "検索",
+    "mapButton": "すべての場所を見る"
   }
 }

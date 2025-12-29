@@ -2,143 +2,170 @@
 import { useTranslations } from 'next-intl';
 import LocaleSwitcher from './LocaleSwitcher';
 import Image from 'next/image';
-import {Link} from '@/i18n/routing';
-import { Home, NotebookPenIcon, Contact, ListCheck, Menu, X } from 'lucide-react';
+import {Link, usePathname} from '@/i18n/routing';
+import { Home, NotebookPenIcon, ListCheck, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeaderProps {
   logo: string;
 }
 
+interface NavItem {
+  href: string;
+  labelKey: string;
+  icon: React.ReactNode;
+}
+
 export default function Header({ logo }: HeaderProps) {
   const t = useTranslations('Header');
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems: NavItem[] = [
+    { href: '/', labelKey: 'home', icon: <Home className="w-5 h-5" /> },
+    { href: '/posts', labelKey: 'about', icon: <NotebookPenIcon className="w-5 h-5" /> },
+    { href: '/concierge', labelKey: 'concierge', icon: <ListCheck className="w-5 h-5" /> },
+  ];
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-      <div className="container mx-auto px-4">
-        {/* Desktop Layout */}
-        <div className="hidden md:flex justify-between items-center py-4">
-          <div className="flex items-center space-x-12">
-            <Image
-              src={logo}
-              alt="Logo"
-              width={120}
-              height={120}
-              priority
-              className="h-20 w-auto"
-            />
-            <nav className="flex space-x-8 ml-[50px]">
-              <Link href="/" className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity">
-                <div className="p-3">
-                  <Home className="w-5 h-5 text-accent" />
-                </div>
-                <span className="text-xs text-accent">{t('home')}</span>
-              </Link>
-              <Link href="/posts" className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity">
-                <div className="p-3">
-                  <NotebookPenIcon className="w-5 h-5 text-accent" />
-                </div>
-                <span className="text-xs text-accent">{t('about')}</span>
-              </Link>
-              <Link href="/concierge" className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity">
-                <div className="p-3">
-                  <ListCheck className="w-5 h-5 text-accent" />
-                </div>
-                <span className="text-xs text-accent">{t('concierge')}</span>
-              </Link>
-              {/* <Link href="/about" className="flex flex-col items-center space-y-1 hover:opacity-80 transition-opacity">
-                <div className="p-3 border border-accent">
-                  <Contact className="w-5 h-5 text-accent" />
-                </div>
-                <span className="text-xs text-accent">{t('contact')}</span>
-              </Link> */}
-            </nav>
-          </div>
-          <LocaleSwitcher />
-        </div>
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(href);
+  };
 
-        {/* Mobile Layout */}
-        <div className="md:hidden">
-          {/* Mobile Header with Logo and Hamburger */}
-          <div className="flex justify-between items-center py-4">
-            <Image
-              src={logo}
-              alt="Logo"
-              width={100}
-              height={100}
-              priority
-              className="h-16 w-auto"
-            />
-            <div className="flex items-center space-x-4">
+  return (
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-3">
+          {/* Desktop Layout */}
+          <div className="hidden md:flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+              <Image
+                src={logo}
+                alt="Logo"
+                width={120}
+                height={120}
+                priority
+                className="h-16 w-auto"
+              />
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="flex items-center gap-4">
+              <nav className="flex items-center gap-1">
+                {navItems.map((item) => {
+                  const active = isActive(item.href);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        active
+                          ? "bg-accent/10 text-accent"
+                          : "text-gray-600 hover:text-accent hover:bg-gray-100"
+                      }`}
+                    >
+                      {item.icon}
+                      <span>{t(item.labelKey)}</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+              <LocaleSwitcher />
+            </div>
+          </div>
+
+          {/* Mobile Layout */}
+          <div className="flex md:hidden items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src={logo}
+                alt="Logo"
+                width={100}
+                height={100}
+                priority
+                className="h-14 w-auto"
+              />
+            </Link>
+
+            {/* Right: Locale Switcher + Hamburger */}
+            <div className="flex items-center gap-1">
               <LocaleSwitcher />
               <button
                 onClick={toggleMobileMenu}
-                className="p-2 hover:bg-gray-100 rounded-md transition-colors"
+                className="w-11 h-11 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation"
                 aria-label="Toggle mobile menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-6 h-6 text-accent" />
+                  <X className="w-6 h-6" />
                 ) : (
-                  <Menu className="w-6 h-6 text-accent" />
+                  <Menu className="w-6 h-6" />
                 )}
               </button>
             </div>
           </div>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="py-4 border-t border-gray-200 bg-white">
-              <nav className="flex flex-col space-y-4">
-                <Link 
-                  href="/" 
-                  className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <div className="p-2 border border-accent">
-                    <Home className="w-5 h-5 text-accent" />
-                  </div>
-                  <span className="text-accent font-medium">{t('home')}</span>
-                </Link>
-                <Link 
-                  href="/posts" 
-                  className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <div className="p-2 border border-accent">
-                    <NotebookPenIcon className="w-5 h-5 text-accent" />
-                  </div>
-                  <span className="text-accent font-medium">{t('about')}</span>
-                </Link>
-                <Link 
-                  href="/concierge" 
-                  className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <div className="p-2 border border-accent">
-                    <ListCheck className="w-5 h-5 text-accent" />
-                  </div>
-                  <span className="text-accent font-medium">{t('concierge')}</span>
-                </Link>
-                {/* <Link 
-                  href="/about" 
-                  className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-md transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <div className="p-2 border border-accent">
-                    <Contact className="w-5 h-5 text-accent" />
-                  </div>
-                  <span className="text-accent font-medium">{t('contact')}</span>
-                </Link> */}
-              </nav>
-            </div>
-          )}
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Full Screen Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 bg-white z-[1060] md:hidden flex flex-col">
+          {/* Menu Header */}
+          <div className="flex items-center justify-between px-4 h-14 border-b border-gray-200 flex-shrink-0">
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-2">
+              <Image
+                src={logo}
+                alt="Logo"
+                width={100}
+                height={100}
+                className="h-12 w-auto"
+              />
+            </Link>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="w-11 h-11 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation"
+              aria-label="Close menu"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          {/* Menu Content */}
+          <div className="flex-1 overflow-y-auto">
+            <nav className="p-4">
+              {navItems.map((item, index) => {
+                const active = isActive(item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center gap-4 px-4 py-4 rounded-xl text-base font-medium transition-all mb-2 touch-manipulation active:scale-[0.98] ${
+                      active
+                        ? "bg-accent/10 text-accent"
+                        : "text-gray-700 hover:bg-gray-50 active:bg-gray-100"
+                    }`}
+                  >
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                      active ? "bg-accent/20" : "bg-gray-100"
+                    }`}>
+                      {item.icon}
+                    </div>
+                    <span>{t(item.labelKey)}</span>
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

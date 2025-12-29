@@ -27,6 +27,18 @@ export const contactInfo = {
       title: 'Website',
     }),
     defineField({
+      name: 'mapUrl',
+      type: 'url',
+      title: 'Map URL',
+      description: 'Link to map or location page',
+    }),
+    defineField({
+      name: 'recommendationUrl',
+      type: 'url',
+      title: 'Recommendation URL',
+      description: 'Link to recommendation or detailed information page',
+    }),
+    defineField({
       name: 'socialMedia',
       type: 'object',
       title: 'Social Media',
