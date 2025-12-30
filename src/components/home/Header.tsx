@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import LocaleSwitcher from './LocaleSwitcher';
 import Image from 'next/image';
 import {Link, usePathname} from '@/i18n/routing';
-import { Home, NotebookPenIcon, ListCheck, Menu, X } from 'lucide-react';
+import { Home, NotebookPenIcon, ListCheck, Menu, X, MapPin } from 'lucide-react';
 import { useState } from 'react';
 
 interface HeaderProps {
@@ -25,6 +25,7 @@ export default function Header({ logo }: HeaderProps) {
     { href: '/', labelKey: 'home', icon: <Home className="w-5 h-5" /> },
     { href: '/posts', labelKey: 'about', icon: <NotebookPenIcon className="w-5 h-5" /> },
     { href: '/concierge', labelKey: 'concierge', icon: <ListCheck className="w-5 h-5" /> },
+    { href: '/map', labelKey: 'map', icon: <MapPin className="w-5 h-5" /> },
   ];
 
   const toggleMobileMenu = () => {

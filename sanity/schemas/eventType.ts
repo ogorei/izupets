@@ -48,13 +48,6 @@ export const eventType = defineType({
       description: '記事の投稿日',
     }),
     defineField({
-      name: 'category',
-      type: 'reference',
-      description: 'この記事はどのカテゴリーに収納するのかを選択する',
-      to: [{ type: 'category' }],
-      validation: Rule => Rule.required()
-    }),
-    defineField({
       name: 'spotType',
       type: 'string',
       title: 'Spot Type',

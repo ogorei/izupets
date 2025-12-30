@@ -143,6 +143,14 @@ export const placesQuery = groq`*[_type == "place"] {
   "categorySlug": category->slug.current,
   hotelDetails,
   restaurantDetails,
+  location,
+  address,
+  contact,
+  petFriendlyFeatures,
+  openingHours,
+  closedDays,
+  area,
+  source,
   "imageURL": coalesce(restaurantDetails.mainImage.asset->url, hotelDetails.mainImage.asset->url, null)
 }`;
 
@@ -168,6 +176,14 @@ export const placeQuery = groq`*[_type == "place" && slug.current == $slug][0]{
   "categorySlug": category->slug.current,
   hotelDetails,
   restaurantDetails,
+  location,
+  address,
+  contact,
+  petFriendlyFeatures,
+  openingHours,
+  closedDays,
+  area,
+  source,
   "imageURL": coalesce(restaurantDetails.mainImage.asset->url, hotelDetails.mainImage.asset->url, null)
 }`;
 
@@ -233,11 +249,21 @@ export const featuredPlacesQuery = groq`
   "category": category->{
     _id,
     title,
-    slug
+    slug,
+    description
   },
   "categorySlug": category->slug.current,
+  "placeType": coalesce(placeType, null),
   restaurantDetails,
   hotelDetails,
+  location,
+  address,
+  contact,
+  petFriendlyFeatures,
+  openingHours,
+  closedDays,
+  area,
+  source,
   "imageURL": coalesce(restaurantDetails.mainImage.asset->url, hotelDetails.mainImage.asset->url, null)
 }
 `;
