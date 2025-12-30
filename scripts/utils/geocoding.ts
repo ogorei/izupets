@@ -35,9 +35,13 @@ export async function geocodeAddress(
     return null;
   }
 
+  // Default to Google Maps if API key is available, otherwise use Nominatim
+  const defaultService = (options.apiKey || process.env.GOOGLE_MAPS_API_KEY) ? 'google' : 'nominatim';
+  const apiKey = options.apiKey || process.env.GOOGLE_MAPS_API_KEY;
+
   const {
-    service = 'nominatim',
-    delay = 1000, // 1 second delay for Nominatim rate limiting
+    service = defaultService,
+    delay = service === 'google' ? 0 : 1000, // No delay needed for Google Maps
     countryCode = 'JP', // Default to Japan
   } = options;
 
@@ -51,7 +55,7 @@ export async function geocodeAddress(
       case 'nominatim':
         return await geocodeWithNominatim(address, countryCode);
       case 'google':
-        return await geocodeWithGoogle(address, options.apiKey);
+        return await geocodeWithGoogle(address, apiKey);
       case 'mapbox':
         return await geocodeWithMapbox(address, options.apiKey);
       default:
@@ -79,10 +83,16 @@ async function geocodeWithNominatim(
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'Pet-Friendly Places Scraper (contact@example.com)', // Nominatim requires User-Agent
+        'Accept-Language': 'ja,en',
       },
     });
 
     if (!response.ok) {
+      // Handle rate limiting and other errors gracefully
+      if (response.status === 403 || response.status === 429) {
+        console.warn(`  ⚠️  Nominatim rate limited (${response.status}), skipping geocoding for this address`);
+        return null;
+      }
       throw new Error(`Nominatim API error: ${response.status}`);
     }
 

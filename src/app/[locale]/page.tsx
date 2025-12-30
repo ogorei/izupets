@@ -1,8 +1,7 @@
 import HomeLayout from "@/components/home/HomeLayout";
 import HeroSearch from "@/components/home/HeroSearch";
-import { iconMap } from "@/utils/iconMap";
 import { fetchEvents, fetchFeaturedPlaces } from "../../../sanity/lib/fetch";
-import type { PetActivityType, Event, PetFriendlyLocation } from "../../../types";
+import type { Event, PetFriendlyLocation } from "../../../types";
 import Banner from "../../components/home/Banner";
 import PostCard from "@/components/posts/PostCard";
 import { getCategoriesByLocale } from "../../../src/utils/categories";
@@ -60,34 +59,6 @@ export default async function LocalizedHomePage({ params }: Props) {
 
   const sidebarContent = (
     <div className="space-y-6">
-      {/* Categories Box - Hidden on mobile */}
-      <div className="p-4 hidden lg:block">
-        <div className="flex items-center w-full mb-4">
-          <h3 className="text-xl text-gray-500 whitespace-nowrap">CATEGORIES</h3>
-          <div className="flex-1 h-0.5 bg-gray-100 ml-4"></div>
-        </div>
-        <nav className="mt-6">
-          <ul className="flex flex-col gap-2">
-            {categories.map((category: PetActivityType) => {
-              const IconComponent = iconMap[category?.icon as keyof typeof iconMap];
-              return (
-                <li key={category.slug.current} className="border hover:bg-categories border-categories flex items-center gap-2 p-2 transition">
-                  <Link
-                    href={`/${params.locale}/category/${category.slug.current}`}
-                    className="flex items-center gap-2 text-gray-500 hover:text-accent transition duration-300 w-full"
-                  >
-                    {IconComponent && <IconComponent className="w-5 h-5 flex-shrink-0" />}
-                    <span className="text-sm sm:text-base">
-                      {category.name[params.locale]}
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div>
-
       {/* Featured Places Box */}
       <div className="p-4">
         <div className="flex items-center w-full mb-4">

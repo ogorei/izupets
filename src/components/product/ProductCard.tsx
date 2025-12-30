@@ -150,8 +150,8 @@ export default function PetFriendlyLocationCard({ location, minimal = false, loc
     const trimmedDescription = trimText(description, 100);
 
     return (
-      <div className="flex flex-col w-full bg-white shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 rounded-lg">
-        <div className="relative w-full h-48 overflow-hidden">
+      <div className="flex flex-col h-full w-full bg-white shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 rounded-lg">
+        <div className="relative w-full h-48 sm:h-56 md:h-48 overflow-hidden flex-shrink-0">
           <Image
             src={imgUrl}
             alt={location.title?.[locale] ?? t('unnamedProduct')}
@@ -160,21 +160,21 @@ export default function PetFriendlyLocationCard({ location, minimal = false, loc
             priority
           />
         </div>
-        <div className="p-4">
-          <h3 className="text-lg font-bold text-petBrown-dark mb-2">
+        <div className="flex flex-col flex-grow p-4">
+          <h3 className="text-lg font-bold text-petBrown-dark mb-2 line-clamp-2">
             {location.title?.[locale] ?? t('untitled')}
           </h3>
           {location.placeType && (
-            <p className="text-sm text-petGreen-dark mb-2">
+            <p className="text-sm text-petGreen-dark mb-2 flex-shrink-0">
               {t('type')}: {location.placeType}
             </p>
           )}
-          <p className="text-sm text-gray-600 line-clamp-2">
+          <p className="text-sm text-gray-600 line-clamp-2 flex-grow">
             {trimmedDescription || t('noDescription')}
           </p>
           <Link
             href={`/${locale}/places/${location.slug.current}`}
-            className="inline-block mt-3 text-sm text-petGreen hover:underline"
+            className="inline-block mt-3 text-sm text-petGreen hover:underline flex-shrink-0"
           >
             {t('more')}
           </Link>

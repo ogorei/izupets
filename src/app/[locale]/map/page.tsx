@@ -4,9 +4,14 @@ import MapClient from '@/components/map/MapClient';
 export default async function MapPage({ params: { locale } }: { params: { locale: string } }) {
   const places = await fetchPlaces();
 
-  // Filter places that have location data
+  // Filter places that have valid location data with coordinates
   const placesWithLocation = places.filter(
-    (place: any) => place.location && place.location.lat && place.location.lng
+    (place: any) => 
+      place.location && 
+      typeof place.location.lat === 'number' && 
+      typeof place.location.lng === 'number' &&
+      !isNaN(place.location.lat) &&
+      !isNaN(place.location.lng)
   );
 
   return (

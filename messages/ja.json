@@ -8,10 +8,11 @@
     "back": "戻る"
   },
   "Header": {
-    "home": "ホーム",
+    "home": "TOP",
     "about": "特集",
     "contact": "専門家紹介",
-    "concierge": "ペット同伴可能スポット"
+    "concierge": "スポット",
+    "map": "地図"
   },
   "Banner": {
     "title": "伊豆高原でペットと一緒に素晴らしい冒険を発見しよう！",
@@ -93,8 +94,10 @@
     "catsAllowed": "猫可",
     "otherPetsAllowed": "その他のペット可",
     "requirements": "要件",
+    "sizeRestrictions": "サイズ制限あり",
     "leashRequired": "リード必須",
-    "petAmenities": "ペット用アメニティ",
+    "freePetFees": "ペット料金無料",
+    "petAmenities": "アメニティ",
     "petBeds": "ペット用ベッド",
     "petBowls": "ペット用ボウル",
     "petTreats": "ペット用おやつ",
@@ -249,5 +252,24 @@
     "searchLabel": "検索",
     "searchButton": "検索",
     "mapButton": "すべての場所を見る"
+  },
+  "Map": {
+    "title": "ペット同伴可能スポット地図",
+    "subtitle": "近くのペット同伴可能な場所を発見",
+    "placesFound": "件のスポットが見つかりました",
+    "requestingLocation": "位置情報を取得しています...",
+    "loadingMap": "地図を読み込んでいます...",
+    "geolocationNotSupported": "お使いのブラウザは位置情報をサポートしていません",
+    "locationDenied": "位置情報へのアクセスが拒否されました",
+    "locationDeniedDescription": "近くのスポットを表示するには、位置情報へのアクセスを有効にしてください。地図にはすべての利用可能なスポットが表示されます。",
+    "enableLocation": "位置情報を有効にする",
+    "yourLocation": "現在地",
+    "yourLocationDescription": "現在の位置（青いマーカー）",
+    "petFriendlyPlaces": "ペット同伴可能スポット",
+    "petFriendlyPlacesDescription": "マーカーをクリックして詳細を表示",
+    "totalPlaces": "総スポット数",
+    "places": "件",
+    "viewDetails": "詳細を見る",
+    "mapLoadError": "地図の読み込みに失敗しました。ページを更新してください。"
   }
 }

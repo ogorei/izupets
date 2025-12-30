@@ -12,7 +12,8 @@
     "scrape:izu-wanko-experiences": "npx tsx scripts/scraper/izu-wanko-experiences-scraper.ts",
     "scrape:pet-inu-yado": "npx tsx scripts/scraper/pet-inu-yado-scraper.ts",
     "debug:html": "npx tsx scripts/scraper/debug-html.ts",
-    "import:sanity": "npx tsx scripts/import/import-to-sanity.ts"
+    "import:sanity": "npx tsx scripts/import/import-to-sanity.ts",
+    "update:coordinates": "npx tsx scripts/import/update-coordinates.ts"
   },
   "dependencies": {
     "@portabletext/react": "^3.2.1",
@@ -31,7 +32,8 @@
     "sanity": "^3.69.0",
     "sharp": "^0.34.1",
     "styled-components": "^6.1.14",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "@react-google-maps/api": "^2.19.3"
   },
   "devDependencies": {
     "@types/node": "^20",

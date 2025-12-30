@@ -8,10 +8,11 @@
     "back": "Back"
   },
   "Header": {
-    "home": "Home",
+    "home": "TOP",
     "about": "Blog",
     "contact": "Profile",
-    "concierge": "Pet-Friendly Spots"
+    "concierge": "Spots",
+    "map": "Map"
   },
   "Banner": {
     "title": "Discover Pet-Friendly Adventures in Izu Kogen!",
@@ -36,7 +37,7 @@
     "noProducts": "No pet-friendly spots found",
     "noResults": "No results found",
     "filteredResults": "Filtered Results",
-    "featuredPlaces": "Featured Places",
+    "featuredPlaAces": "Featured Places",
     "allPlaces": "All Pet-Friendly Places",
     "result": "result",
     "results": "results",
@@ -54,8 +55,10 @@
     "catsAllowed": "Cats Allowed",
     "otherPetsAllowed": "Other Pets Allowed",
     "requirements": "Requirements",
+    "sizeRestrictions": "Has Size Restrictions",
     "leashRequired": "Leash Required",
-    "petAmenities": "Pet Amenities",
+    "freePetFees": "Free Pet Fees",
+    "petAmenities": "Amenities",
     "petBeds": "Pet Beds",
     "petBowls": "Pet Bowls",
     "petTreats": "Pet Treats",
@@ -210,5 +213,24 @@
     "searchLabel": "Search",
     "searchButton": "Search",
     "mapButton": "Browse All Places"
+  },
+  "Map": {
+    "title": "Pet-Friendly Places Map",
+    "subtitle": "Discover pet-friendly locations near you",
+    "placesFound": "places found",
+    "requestingLocation": "Requesting your location...",
+    "loadingMap": "Loading map...",
+    "geolocationNotSupported": "Geolocation is not supported by your browser",
+    "locationDenied": "Location access denied",
+    "locationDeniedDescription": "Please enable location access to see places near you. The map will still show all available places.",
+    "enableLocation": "Enable Location",
+    "yourLocation": "Your Location",
+    "yourLocationDescription": "Your current location (blue marker)",
+    "petFriendlyPlaces": "Pet-Friendly Places",
+    "petFriendlyPlacesDescription": "Click on markers to see details",
+    "totalPlaces": "Total Places",
+    "places": "places",
+    "viewDetails": "View Details",
+    "mapLoadError": "Failed to load map. Please refresh the page."
   }
 }

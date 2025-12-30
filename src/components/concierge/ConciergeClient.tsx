@@ -102,7 +102,7 @@ export default function ConciergeClient({ initialLocations, locale }: Props) {
                   <div
                     key={location._id}
                     onClick={() => handleProductClick(location.slug.current)}
-                    className="cursor-pointer"
+                    className="cursor-pointer h-full"
                   >
                     <ProductCard 
                       location={location} 
