@@ -38,10 +38,10 @@ export default function HeroSearch({ locale }: HeroSearchProps) {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-accent/90 via-accent to-accent/80 overflow-hidden -mt-36 md:-mt-40">
+    <section className="relative bg-gradient-to-br from-accent/90 via-accent to-accent/80 overflow-hidden pt-20 md:pt-10">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -left-20 w-80 h-80 bg-accent/20 rounded-full blur-3xl opacity-50" />
+        <div className="absolute -top-20 -left-20 w-80 h-80 bg-secondary/20 rounded-full blur-3xl opacity-50" />
         <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-50" />
       </div>
 
@@ -49,7 +49,7 @@ export default function HeroSearch({ locale }: HeroSearchProps) {
         {/* Catchphrase */}
         <div className="text-center mb-10">
           <div className="inline-block mb-4">
-            <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white/90 border border-white/20">
+            <span className="px-4 py-2 bg-secondary backdrop-blur-sm rounded-full text-sm font-medium text-accent border border-white/20">
               {t("badge")}
             </span>
           </div>
@@ -59,7 +59,7 @@ export default function HeroSearch({ locale }: HeroSearchProps) {
               {t("titleLine2")}
             </span>
           </h1>
-          <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
             {t("subtitle")}
           </p>
         </div>
@@ -67,48 +67,48 @@ export default function HeroSearch({ locale }: HeroSearchProps) {
         {/* Search Tabs and Bar */}
         <div className="max-w-2xl mx-auto mb-8">
           {/* Search Tabs */}
-          <div className="flex mb-0 bg-white/5 backdrop-blur-sm rounded-t-2xl overflow-hidden border border-white/20 border-b-0">
+          <div className="flex mb-0 bg-white/5 backdrop-blur-sm overflow-hidden border border-white/20 border-b-0">
             <button
               onClick={() => handleTabClick("restaurant")}
-              className={`flex-1 py-3.5 px-2 sm:px-4 text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center justify-center gap-2 ${
+              className={`flex-1 py-2.5 sm:py-3.5 px-1.5 sm:px-2 md:px-4 text-sm font-bold transition-all whitespace-nowrap flex items-center justify-center gap-1 sm:gap-2 ${
                 searchTab === "restaurant"
                   ? "bg-white text-accent shadow-lg"
                   : "text-white/80 hover:bg-white/10"
               }`}
             >
-              <UtensilsCrossed className="w-4 h-4" />
-              {t("restaurantTab")}
+              <UtensilsCrossed className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+              <span className="truncate">{t("restaurantTab")}</span>
             </button>
             <button
               onClick={() => handleTabClick("facilities")}
-              className={`flex-1 py-3.5 px-2 sm:px-4 text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center justify-center gap-2 ${
+              className={`flex-1 py-2.5 sm:py-3.5 px-1.5 sm:px-2 md:px-4 text-sm font-bold transition-all whitespace-nowrap flex items-center justify-center gap-1 sm:gap-2 ${
                 searchTab === "facilities"
                   ? "bg-white text-accent shadow-lg"
                   : "text-white/80 hover:bg-white/10"
               }`}
             >
-              <Building2 className="w-4 h-4" />
-              {t("facilitiesTab")}
+              <Building2 className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+              <span className="truncate">{t("facilitiesTab")}</span>
             </button>
             <button
               onClick={() => handleTabClick("hotels")}
-              className={`flex-1 py-3.5 px-2 sm:px-4 text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center justify-center gap-2 ${
+              className={`flex-1 py-2.5 sm:py-3.5 px-1.5 sm:px-2 md:px-4 text-sm font-bold transition-all whitespace-nowrap flex items-center justify-center gap-1 sm:gap-2 ${
                 searchTab === "hotels"
                   ? "bg-white text-accent shadow-lg"
                   : "text-white/80 hover:bg-white/10"
               }`}
             >
-              <MapPin className="w-4 h-4" />
-              {t("hotelsTab")}
+              <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+              <span className="truncate">{t("hotelsTab")}</span>
             </button>
           </div>
 
           {/* Search Bar */}
-          <div className="relative bg-white rounded-b-2xl shadow-2xl overflow-visible">
-            <div className="flex">
+          <div className="relative bg-white shadow-2xl overflow-hidden">
+            <div className="flex flex-col sm:flex-row">
               <div className="relative flex-1">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-                  <Search className="w-5 h-5 text-gray-400" />
+                <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none z-10">
+                  <Search className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                 </div>
                 <input
                   type="text"
@@ -117,12 +117,12 @@ export default function HeroSearch({ locale }: HeroSearchProps) {
                   onKeyDown={handleKeyDown}
                   placeholder={t(`placeholder_${searchTab}`)}
                   aria-label={t("searchLabel")}
-                  className="w-full h-14 pl-12 pr-4 bg-transparent border-0 rounded-bl-2xl focus:outline-none focus:ring-0 text-base text-gray-900 placeholder-gray-400"
+                  className="w-full h-12 sm:h-14 pl-10 sm:pl-12 pr-3 sm:pr-4 bg-transparent border-0 focus:outline-none focus:ring-0 text-sm sm:text-base text-gray-900 placeholder-gray-400"
                 />
               </div>
               <button
                 onClick={handleSearch}
-                className="px-8 bg-gradient-to-r from-accent to-accent/90 text-white font-bold text-base hover:from-accent/90 hover:to-accent transition-all rounded-br-2xl shadow-lg"
+                className="px-4 sm:px-6 md:px-8 py-3 sm:py-0 sm:h-14 bg-secondary text-accent font-bold text-base sm:text-sm border shadow-lg whitespace-nowrap"
               >
                 {t("searchButton")}
               </button>
@@ -131,16 +131,16 @@ export default function HeroSearch({ locale }: HeroSearchProps) {
         </div>
 
         {/* Map CTA Button */}
-        <div className="flex justify-center">
+        <div className="flex justify-center px-4 sm:px-0">
           <Link
             href="/concierge"
-            className="group inline-flex items-center justify-center gap-3 px-10 py-4 bg-white text-accent font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-white/50"
+            className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 md:px-10 py-3 sm:py-4 bg-white text-accent font-bold text-sm sm:text-base rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl active:scale-95 sm:hover:scale-105 transition-all duration-300 border-2 border-white/50 w-full sm:w-auto max-w-xs sm:max-w-none"
           >
-            <span className="w-10 h-10 bg-gradient-to-br from-accent to-accent/80 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-              <MapPin className="w-5 h-5 text-white" />
+            <span className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-gradient-to-br from-accent to-accent/80 rounded-lg sm:rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0">
+              <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
             </span>
-            <span>{t("mapButton")}</span>
-            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className="truncate text-center">{t("mapButton")}</span>
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform flex-shrink-0 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>

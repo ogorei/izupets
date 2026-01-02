@@ -15,7 +15,7 @@ export default async function MapPage({ params: { locale } }: { params: { locale
   );
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <MapClient places={placesWithLocation} locale={locale as 'en' | 'ja'} />
     </div>
   );

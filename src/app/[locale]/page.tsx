@@ -103,7 +103,7 @@ export default async function LocalizedHomePage({ params }: Props) {
       
       {/* Main Content */}
       <HomeLayout sidebar={sidebarContent}>
-        {events.length > 1 && <Banner post={events[0]} locale={params.locale} categories={categories} />}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {events.map((event: Event) => {
             const description = event.description?.[params.locale];

@@ -45,7 +45,7 @@ export default function PostCard({
     <Link
       key={id}
       href={`/${locale}/posts/${slug}`}
-      className="block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow"
+      className="block bg-white shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
     >
       {imageURL && (
         <Image
@@ -58,7 +58,7 @@ export default function PostCard({
         />
       )}
       <div className="p-4">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex flex-col items-start justify-between mb-2">
           <h3 className="text-lg font-bold text-gray-800">{title}</h3>
           {spotType && (
             <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
@@ -69,14 +69,14 @@ export default function PostCard({
         <p className="text-sm text-gray-600 mt-2 line-clamp-2">
           {trimmedDescription}
         </p>
-        <div className="flex items-center justify-between mt-2">
+        <div className="flex flex-col items-start justify-between mt-2">
           <p className="text-sm text-gray-500">
             {date ? convertDate(date) : ''} {date && authorName && '・'} {authorName}
           </p>
           {tags && tags.length > 0 && (
             <div className="flex gap-1">
               {tags.slice(0, 2).map((tag, index) => (
-                <span key={index} className="text-xs bg-gray-100 text-gray-600 px-1 py-0.5 rounded">
+                <span key={index} className="text-xs bg-gray-100 text-gray-600 px-1 py-0.5">
                   {tag}
                 </span>
               ))}

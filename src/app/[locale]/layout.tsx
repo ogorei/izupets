@@ -28,16 +28,18 @@ export default async function LocaleLayout({
 
   // Load i18n messages
   const messages = await getMessages()
-  const logo: string = "https://i.gyazo.com/0e34c5055672fe91cffe7d348d415ea5.jpg"
+  const logo: string = "https://i.gyazo.com/c725d35a3d56b841195caa080f0983f0.png"
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <Header logo={logo} />
-      <main className="pt-36 md:pt-40">
-        {children}
-        <SanityLive />
-      </main>
-      <Footer/>
+      <div className="min-h-screen flex flex-col">
+        <Header logo={logo} />
+        <main className="flex-1">
+          {children}
+          <SanityLive />
+        </main>
+        <Footer/>
+      </div>
     </NextIntlClientProvider>
   )
 }

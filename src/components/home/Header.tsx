@@ -41,8 +41,8 @@ export default function Header({ logo }: HeaderProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-3">
+      <header className="sticky top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 ">
           {/* Desktop Layout */}
           <div className="hidden md:flex items-center justify-between">
             {/* Logo */}
@@ -53,7 +53,7 @@ export default function Header({ logo }: HeaderProps) {
                 width={120}
                 height={120}
                 priority
-                className="h-16 w-auto"
+                className="h-18 w-auto"
               />
             </Link>
 
