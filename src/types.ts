@@ -135,6 +135,7 @@ export type RestaurantDetails = {
   genre?: string;
   priceRange?: string;
   description?: string;
+  tags?: string[];
   mainImage?: {
     _type: string;
     asset: {

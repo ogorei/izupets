@@ -165,6 +165,41 @@ export type PetFriendlyLocation = {
       current: string;
     };
   };
+  // Category-specific fields (only populated for relevant categories)
+  hotelDetails?: {
+    checkIn?: string;
+    checkOut?: string;
+    numberOfRooms?: number;
+    roomTypes?: string[];
+    petWeightLimit?: string;
+    numberOfPetsAllowed?: number;
+    petServices?: string[];
+  };
+  restaurantDetails?: {
+    name?: string;
+    rating?: number;
+    location?: string;
+    genre?: string;
+    priceRange?: string;
+    description?: string;
+    tags?: string[];
+    mainImage?: {
+      _type: string;
+      asset: {
+        _ref: string;
+        _type: string;
+      };
+      alt?: string;
+    };
+    images?: Array<{
+      _type: string;
+      asset: {
+        _ref: string;
+        _type: string;
+      };
+      alt?: string;
+    }>;
+  };
 };
 
 export type Event = {

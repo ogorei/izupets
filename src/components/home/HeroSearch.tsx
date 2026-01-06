@@ -22,7 +22,8 @@ export default function HeroSearch({ locale }: HeroSearchProps) {
 
     // Navigate to concierge page with search query
     // Category filtering can be done on the concierge page
-    router.push(`/${locale}/concierge?q=${encodeURIComponent(searchQuery)}`);
+    // The router from @/i18n/routing automatically handles locale prefix
+    router.push(`/concierge?q=${encodeURIComponent(searchQuery)}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

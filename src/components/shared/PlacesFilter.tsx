@@ -1,19 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PetFriendlyLocation } from '../../../types';
 import { useTranslations } from 'next-intl';
 
 type Locale = 'en' | 'ja';
 
 interface FilterState {
+  // Place type filter (restaurant, hotel, activities)
+  placeType: string;
+  
+  // Price range filter
+  priceRange: string;
+  
   // Pet types (from petFriendlyFeatures)
   dogsAllowed: boolean;
   catsAllowed: boolean;
   otherPetsAllowed: boolean;
   
+  // Size restrictions (from petFriendlyFeatures)
+  sizeRestrictions: boolean;
+  
   // Requirements (from petFriendlyFeatures)
   leashRequired: boolean;
+  
+  // Pet fees (from petFriendlyFeatures)
+  freePetFees: boolean;
   
   // Pet amenities (from petFriendlyFeatures.petAmenities)
   petBeds: boolean;
@@ -28,18 +41,6 @@ interface FilterState {
   petPlayArea: boolean;
   petFriendlyRooms: boolean;
   petReliefArea: boolean;
-  
-  // Place type filter
-  placeType: string;
-  
-  // Price range filter
-  priceRange: string;
-  
-  // Rating filter
-  minRating: number;
-  
-  // Featured places only
-  featuredOnly: boolean;
 }
 
 interface Props {
@@ -49,11 +50,16 @@ interface Props {
 }
 
 export default function PlacesFilter({ places, onFilterChange, locale }: Props) {
+  const searchParams = useSearchParams();
   const [filters, setFilters] = useState<FilterState>({
+    placeType: '',
+    priceRange: '',
     dogsAllowed: false,
     catsAllowed: false,
     otherPetsAllowed: false,
+    sizeRestrictions: false,
     leashRequired: false,
+    freePetFees: false,
     petBeds: false,
     petBowls: false,
     petTreats: false,
@@ -66,13 +72,18 @@ export default function PlacesFilter({ places, onFilterChange, locale }: Props) 
     petPlayArea: false,
     petFriendlyRooms: false,
     petReliefArea: false,
-    placeType: '',
-    priceRange: '',
-    minRating: 0,
-    featuredOnly: false,
   });
 
   const t = useTranslations('PlacesFilter');
+
+  // Get search query from URL params
+  const searchQuery = searchParams.get('q') || '';
+
+  // Apply filters when search query or places change
+  useEffect(() => {
+    filterPlaces(filters);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, places]);
 
   const handleBooleanChange = (key: keyof FilterState) => {
     const newFilters = { ...filters, [key]: !filters[key] };
@@ -83,35 +94,189 @@ export default function PlacesFilter({ places, onFilterChange, locale }: Props) 
   const handleSelectChange = (key: keyof FilterState, value: string | number) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
+    
+    if (key === 'placeType') {
+      console.log('🔍 Place Type filter changed:', {
+        selectedPlaceType: value,
+        totalPlaces: places.length,
+        categorySlugsInData: places.map(p => ({
+          name: p.title?.en || p.title?.ja || 'Unknown',
+          categorySlug: (p as any).categorySlug || p.category?.slug?.current,
+          categoryName: (p.category as any)?.name?.en || (p.category as any)?.name?.ja || (p.category as any)?.title?.en || (p.category as any)?.title?.ja,
+          rawPlace: p
+        }))
+      });
+    }
+    
     filterPlaces(newFilters);
   };
 
+  // Helper function to check if place matches place type using categorySlug
+  const matchesPlaceType = (place: PetFriendlyLocation, placeTypeFilter: string): boolean => {
+    if (!placeTypeFilter) return true;
+    
+    // Use categorySlug for filtering
+    const categorySlug = ((place as any).categorySlug || place.category?.slug?.current || '').toLowerCase();
+    const placeName = place.title?.en || place.title?.ja || 'Unknown';
+    
+    if (placeTypeFilter === 'restaurant') {
+      // Match restaurant or cafe category slugs
+      const matches = (
+        categorySlug.includes('restaurant') || 
+        categorySlug.includes('cafe')
+      );
+      if (!matches && categorySlug) {
+        console.log(`❌ ${placeName}: categorySlug="${categorySlug}" does not match "restaurant" filter`);
+      } else if (matches) {
+        console.log(`✅ ${placeName}: categorySlug="${categorySlug}" matches "restaurant" filter`);
+      }
+      return matches;
+    } else if (placeTypeFilter === 'hotel') {
+      // Match hotel or accommodation category slugs
+      const matches = (
+        categorySlug.includes('hotel') || 
+        categorySlug.includes('accommodation') ||
+        categorySlug.includes('lodging')
+      );
+      if (!matches && categorySlug) {
+        console.log(`❌ ${placeName}: categorySlug="${categorySlug}" does not match "hotel" filter`);
+      } else if (matches) {
+        console.log(`✅ ${placeName}: categorySlug="${categorySlug}" matches "hotel" filter`);
+      }
+      return matches;
+    } else if (placeTypeFilter === 'activities') {
+      // Match all activity-related category slugs
+      const matches = (
+        categorySlug.includes('activity') || 
+        categorySlug.includes('workshop') || 
+        categorySlug.includes('experience') ||
+        categorySlug.includes('attraction') ||
+        categorySlug.includes('museum') ||
+        categorySlug.includes('park') ||
+        categorySlug.includes('zoo') ||
+        categorySlug.includes('pottery') ||
+        categorySlug.includes('glasswork') ||
+        categorySlug.includes('silversmith') ||
+        categorySlug.includes('metalwork') ||
+        categorySlug.includes('painting') ||
+        categorySlug.includes('craft')
+      );
+      if (!matches && categorySlug) {
+        console.log(`❌ ${placeName}: categorySlug="${categorySlug}" does not match "activities" filter`);
+      } else if (matches) {
+        console.log(`✅ ${placeName}: categorySlug="${categorySlug}" matches "activities" filter`);
+      }
+      return matches;
+    }
+    
+    return true;
+  };
+
+  // Helper function to check if place matches search query
+  const matchesSearchQuery = (place: PetFriendlyLocation, query: string): boolean => {
+    if (!query || !query.trim()) return true;
+    
+    const normalizedQuery = query.toLowerCase().trim();
+    
+    // Check tags in restaurantDetails
+    if (place.restaurantDetails?.tags) {
+      const tagMatch = place.restaurantDetails.tags.some(tag => 
+        tag.toLowerCase().includes(normalizedQuery)
+      );
+      if (tagMatch) return true;
+    }
+    
+    // Check title (both English and Japanese)
+    const titleEn = place.title?.en?.toLowerCase() || '';
+    const titleJa = place.title?.ja?.toLowerCase() || '';
+    if (titleEn.includes(normalizedQuery) || titleJa.includes(normalizedQuery)) {
+      return true;
+    }
+    
+    // Check genre in restaurantDetails
+    const genre = place.restaurantDetails?.genre?.toLowerCase() || '';
+    if (genre.includes(normalizedQuery)) {
+      return true;
+    }
+    
+    // Check restaurant name
+    const restaurantName = place.restaurantDetails?.name?.toLowerCase() || '';
+    if (restaurantName.includes(normalizedQuery)) {
+      return true;
+    }
+    
+    // Check description (if available)
+    const descriptionEn = place.description?.en?.map(block => {
+      if (block._type === 'block' && block.children) {
+        return block.children.map((child: any) => child.text || '').join(' ');
+      }
+      return '';
+    }).join(' ').toLowerCase() || '';
+    const descriptionJa = place.description?.ja?.map(block => {
+      if (block._type === 'block' && block.children) {
+        return block.children.map((child: any) => child.text || '').join(' ');
+      }
+      return '';
+    }).join(' ').toLowerCase() || '';
+    if (descriptionEn.includes(normalizedQuery) || descriptionJa.includes(normalizedQuery)) {
+      return true;
+    }
+    
+    return false;
+  };
+
   const filterPlaces = (currentFilters: FilterState) => {
-    // Check if any filters are active
+    // Check if any filters are active (including search query)
     const hasActiveFilters = Object.entries(currentFilters).some(([key, value]) => {
       if (key === 'placeType' || key === 'priceRange') return value !== '';
-      if (key === 'minRating') return value > 0;
-      if (key === 'featuredOnly') return value === true;
       return value === true;
     });
+    const hasSearchQuery = searchQuery && searchQuery.trim() !== '';
     
-    // If no filters are active, return all places
-    if (!hasActiveFilters) {
+    // If no filters are active and no search query, return all places
+    if (!hasActiveFilters && !hasSearchQuery) {
+      console.log('🔍 No active filters, returning all places:', places.length);
       onFilterChange(places);
       return;
     }
 
+    console.log('🔍 Starting filter with:', {
+      placeType: currentFilters.placeType,
+      priceRange: currentFilters.priceRange,
+      searchQuery: searchQuery,
+      totalPlaces: places.length
+    });
+
     const filteredPlaces = places.filter((place) => {
       const features = place.petFriendlyFeatures || {};
       const amenities = features.petAmenities || [];
+
+      // Search query filter (check tags, title, genre, etc.)
+      if (!matchesSearchQuery(place, searchQuery)) return false;
+
+      // Place type filter
+      if (!matchesPlaceType(place, currentFilters.placeType)) return false;
+
+      // Price range filter
+      if (currentFilters.priceRange && place.priceRange !== currentFilters.priceRange) return false;
 
       // Pet types
       if (currentFilters.dogsAllowed && !features.dogsAllowed) return false;
       if (currentFilters.catsAllowed && !features.catsAllowed) return false;
       if (currentFilters.otherPetsAllowed && !features.otherPetsAllowed) return false;
 
+      // Size restrictions (check if place has size restrictions - it's a string field)
+      if (currentFilters.sizeRestrictions && (!features.sizeRestrictions || features.sizeRestrictions.trim() === '')) return false;
+
       // Requirements
       if (currentFilters.leashRequired && !features.leashRequired) return false;
+
+      // Pet fees (check if pet fees are free or not specified)
+      if (currentFilters.freePetFees) {
+        const petFees = features.petFees || '';
+        const isFree = !petFees || petFees.toLowerCase().includes('free') || petFees.toLowerCase().includes('無料') || petFees === '0';
+        if (!isFree) return false;
+      }
 
       // Pet amenities
       if (currentFilters.petBeds && !amenities.includes('pet-beds')) return false;
@@ -127,32 +292,61 @@ export default function PlacesFilter({ places, onFilterChange, locale }: Props) 
       if (currentFilters.petFriendlyRooms && !amenities.includes('pet-friendly-rooms')) return false;
       if (currentFilters.petReliefArea && !amenities.includes('pet-relief-area')) return false;
 
-      // Place type
-      if (currentFilters.placeType && place.placeType !== currentFilters.placeType) return false;
-
-      // Price range
-      if (currentFilters.priceRange && place.priceRange !== currentFilters.priceRange) return false;
-
-      // Rating
-      if (currentFilters.minRating > 0 && (!place.rating || place.rating < currentFilters.minRating)) return false;
-
-      // Featured only
-      if (currentFilters.featuredOnly && !place.featured) return false;
-
       return true;
+    });
+
+    console.log('🔍 Filter results:', {
+      selectedPlaceType: currentFilters.placeType,
+      filteredCount: filteredPlaces.length,
+      originalCount: places.length,
+      filteredPlaces: filteredPlaces.map(p => ({
+        name: p.title?.en || p.title?.ja || 'Unknown',
+        categorySlug: (p as any).categorySlug || p.category?.slug?.current
+      }))
     });
 
     onFilterChange(filteredPlaces);
   };
 
-  // Get unique place types and price ranges for dropdowns
-  const placeTypes = Array.from(new Set(places.map(place => place.placeType).filter(Boolean)));
+  // Price ranges for dropdown
   const priceRanges = ['$', '$$', '$$$', '$$$$'];
 
   return (
     <div className="bg-gray-100 p-6 shadow-md sticky top-8 max-h-screen overflow-y-auto">
       <h2 className="text-lg md:text-2xl font-semibold mb-4">{t('title')}</h2>
       <div className="space-y-6">
+        {/* Place Type */}
+        <div>
+          <h3 className="font-medium mb-2">{t('placeType')}</h3>
+          <select
+            value={filters.placeType}
+            onChange={(e) => handleSelectChange('placeType', e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md text-sm"
+          >
+            <option value="">{t('allTypes')}</option>
+            <option value="restaurant">{locale === 'ja' ? 'レストラン' : 'Restaurant'}</option>
+            <option value="hotel">{locale === 'ja' ? 'ホテル' : 'Hotel'}</option>
+            <option value="activities">{locale === 'ja' ? 'アクティビティ' : 'Activities'}</option>
+          </select>
+        </div>
+
+        {/* Price Range */}
+        <div>
+          <h3 className="font-medium mb-2">{t('priceRange')}</h3>
+          <select
+            value={filters.priceRange}
+            onChange={(e) => handleSelectChange('priceRange', e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md text-sm"
+          >
+            <option value="">{t('allPrices')}</option>
+            {priceRanges.map((range) => (
+              <option key={range} value={range}>
+                {range}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Pet Types */}
         <div>
           <h3 className="font-medium mb-2">{t('petTypes')}</h3>
@@ -194,11 +388,29 @@ export default function PlacesFilter({ places, onFilterChange, locale }: Props) 
             <label className="flex items-center space-x-2">
               <input
                 type="checkbox"
+                checked={filters.sizeRestrictions}
+                onChange={() => handleBooleanChange('sizeRestrictions')}
+                className="form-checkbox h-4 w-4 accent-petGreen"
+              />
+              <span className="text-sm">{t('sizeRestrictions')}</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
                 checked={filters.leashRequired}
                 onChange={() => handleBooleanChange('leashRequired')}
                 className="form-checkbox h-4 w-4 accent-petGreen"
               />
               <span className="text-sm">{t('leashRequired')}</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={filters.freePetFees}
+                onChange={() => handleBooleanChange('freePetFees')}
+                className="form-checkbox h-4 w-4 accent-petGreen"
+              />
+              <span className="text-sm">{t('freePetFees')}</span>
             </label>
           </div>
         </div>
@@ -264,11 +476,47 @@ export default function PlacesFilter({ places, onFilterChange, locale }: Props) 
             <label className="flex items-center space-x-2">
               <input
                 type="checkbox"
+                checked={filters.petWasteBags}
+                onChange={() => handleBooleanChange('petWasteBags')}
+                className="form-checkbox h-4 w-4 accent-petGreen"
+              />
+              <span className="text-sm">{t('petWasteBags')}</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={filters.petGrooming}
+                onChange={() => handleBooleanChange('petGrooming')}
+                className="form-checkbox h-4 w-4 accent-petGreen"
+              />
+              <span className="text-sm">{t('petGrooming')}</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={filters.petSitting}
+                onChange={() => handleBooleanChange('petSitting')}
+                className="form-checkbox h-4 w-4 accent-petGreen"
+              />
+              <span className="text-sm">{t('petSitting')}</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
                 checked={filters.petPlayArea}
                 onChange={() => handleBooleanChange('petPlayArea')}
                 className="form-checkbox h-4 w-4 accent-petGreen"
               />
               <span className="text-sm">{t('petPlayArea')}</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                checked={filters.petFriendlyRooms}
+                onChange={() => handleBooleanChange('petFriendlyRooms')}
+                className="form-checkbox h-4 w-4 accent-petGreen"
+              />
+              <span className="text-sm">{t('petFriendlyRooms')}</span>
             </label>
             <label className="flex items-center space-x-2">
               <input
@@ -282,69 +530,6 @@ export default function PlacesFilter({ places, onFilterChange, locale }: Props) 
           </div>
         </div>
 
-        {/* Place Type */}
-        <div>
-          <h3 className="font-medium mb-2">{t('placeType')}</h3>
-          <select
-            value={filters.placeType}
-            onChange={(e) => handleSelectChange('placeType', e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md text-sm"
-          >
-            <option value="">{t('allTypes')}</option>
-            {placeTypes.map((type) => (
-              <option key={type} value={type}>
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Price Range */}
-        <div>
-          <h3 className="font-medium mb-2">{t('priceRange')}</h3>
-          <select
-            value={filters.priceRange}
-            onChange={(e) => handleSelectChange('priceRange', e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md text-sm"
-          >
-            <option value="">{t('allPrices')}</option>
-            {priceRanges.map((range) => (
-              <option key={range} value={range}>
-                {range}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Rating */}
-        <div>
-          <h3 className="font-medium mb-2">{t('minRating')}</h3>
-          <select
-            value={filters.minRating}
-            onChange={(e) => handleSelectChange('minRating', Number(e.target.value))}
-            className="w-full p-2 border border-gray-300 rounded-md text-sm"
-          >
-            <option value={0}>{t('anyRating')}</option>
-            <option value={1}>1+ {t('stars')}</option>
-            <option value={2}>2+ {t('stars')}</option>
-            <option value={3}>3+ {t('stars')}</option>
-            <option value={4}>4+ {t('stars')}</option>
-            <option value={5}>5 {t('stars')}</option>
-          </select>
-        </div>
-
-        {/* Featured Only */}
-        <div>
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={filters.featuredOnly}
-              onChange={() => handleBooleanChange('featuredOnly')}
-              className="form-checkbox h-4 w-4 accent-petGreen"
-            />
-            <span className="text-sm font-medium">{t('featuredOnly')}</span>
-          </label>
-        </div>
       </div>
     </div>
   );

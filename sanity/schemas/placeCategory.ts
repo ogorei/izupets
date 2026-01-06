@@ -41,23 +41,6 @@ export const placeCategory = defineType({
       },
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: 'description',
-      type: 'object',
-      title: 'Description',
-      fields: [
-        {
-          name: 'en',
-          type: 'text',
-          title: 'English Description',
-        },
-        {
-          name: 'ja',
-          type: 'text',
-          title: 'Japanese Description',
-        }
-      ],
-    }),
   ],
   preview: {
     select: {

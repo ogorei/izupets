@@ -11,12 +11,23 @@ const config: Config = {
       screens: {
         'lg-plus': '1220px', // Add a custom breakpoint for 1220px
       },
+      fontSize: {
+        'sm': '16px',
+        'md': '18px',
+        'lg': '20px',
+      },
       colors: {
         ctext: {
           DEFAULT: '#2d3748', // Soft dark gray
         },
         accent: {
           DEFAULT: '#8b5a3c', // Warm brown
+        },
+        secondary: {
+          DEFAULT: '#f8f246', // yellow
+        },
+        tertiary: {
+          DEFAULT: '#2cbbc3', // yellow
         },
         disable: {
           DEFAULT: '#a0aec0', // Soft gray

@@ -15,8 +15,8 @@
     "map": "地図"
   },
   "Banner": {
-    "title": "伊豆高原でペットと一緒に素晴らしい冒険を発見しよう！",
-    "subtitle": "美しい伊豆高原エリアのペット同伴可能なレストラン、ホテル、公園、アクティビティのガイドです。",
+    "title": "家族だから、一緒に行く",
+    "subtitle": "一緒に過ごせるレストラン・宿・施設を、今いる場所からすぐ見つけよう",
     "readMore": "続きを読む..."
   },
   "NewsSection": {
@@ -239,10 +239,10 @@
     "otherPets": "その他のペット"
   },
   "HeroSearch": {
-    "badge": "ペット同伴旅行ガイド",
-    "titleLine1": "伊豆高原で",
-    "titleLine2": "ペットと一緒に素晴らしい冒険を発見",
-    "subtitle": "美しい伊豆高原エリアのペット同伴可能なレストラン、ホテル、施設のガイドです。",
+    "badge": "わんちゃん・ねこちゃん同伴OK",
+    "titleLine1": "家族だから、一緒に行く",
+    "titleLine2": "",
+    "subtitle": "一緒に過ごせるレストラン・宿・施設を、今いる場所からすぐ見つけよう",
     "restaurantTab": "レストラン",
     "facilitiesTab": "施設",
     "hotelsTab": "ホテル",
@@ -263,6 +263,7 @@
     "locationDenied": "位置情報へのアクセスが拒否されました",
     "locationDeniedDescription": "近くのスポットを表示するには、位置情報へのアクセスを有効にしてください。地図にはすべての利用可能なスポットが表示されます。",
     "enableLocation": "位置情報を有効にする",
+    "enableLocationDescription": "下のボタンをクリックして、地図上に現在地を表示し、近くのペット同伴可能スポットを見つけましょう。",
     "yourLocation": "現在地",
     "yourLocationDescription": "現在の位置（青いマーカー）",
     "petFriendlyPlaces": "ペット同伴可能スポット",

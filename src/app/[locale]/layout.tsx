@@ -8,10 +8,11 @@ import { routing } from '@/i18n/routing';
 import Header from "../../components/home/Header";
 import { SanityLive } from '../../../sanity/lib/live';
 import Footer from '@/components/home/Footer';
+import { QueryProvider } from '@/providers/QueryProvider';
 
 export const metadata: Metadata = {
-  title: 'スマコス',
-  description: 'コスメのフタ、科学の目でオープン！',
+  title: 'PetSpot（ペットスポット）｜全国のペット同伴OK宿・レストラン・施設まとめ',
+  description: 'PetSpot（ペットスポット）は、全国のペットと一緒に泊まれる宿、食べられるレストラン、行ける病院、遊べる施設を厳選した情報サイトです。犬・猫と快適に過ごせるお出かけ先を紹介しています。',
 }
 
 export default async function LocaleLayout({
@@ -28,18 +29,20 @@ export default async function LocaleLayout({
 
   // Load i18n messages
   const messages = await getMessages()
-  const logo: string = "https://i.gyazo.com/c725d35a3d56b841195caa080f0983f0.png"
+  const logo: string = "https://i.gyazo.com/d35303bcb9904798cea25cf2db558d9c.png"
 
   return (
-    <NextIntlClientProvider messages={messages}>
-      <div className="min-h-screen flex flex-col">
-        <Header logo={logo} />
-        <main className="flex-1">
-          {children}
-          <SanityLive />
-        </main>
-        <Footer/>
-      </div>
-    </NextIntlClientProvider>
+    <QueryProvider>
+      <NextIntlClientProvider messages={messages}>
+        <div className="min-h-screen flex flex-col">
+          <Header logo={logo} />
+          <main className="flex-1">
+            {children}
+            <SanityLive />
+          </main>
+          <Footer/>
+        </div>
+      </NextIntlClientProvider>
+    </QueryProvider>
   )
 }

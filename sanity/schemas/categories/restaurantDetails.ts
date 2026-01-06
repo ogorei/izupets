@@ -56,6 +56,16 @@ export const restaurantDetails = {
       title: 'Description',
       description: 'Restaurant description',
     }),
+    defineField({
+      name: 'tags',
+      type: 'array',
+      title: 'Search Tags',
+      description: 'Tags for search functionality. Add multiple tags in different languages (e.g., "Japanese", "日本料理", "そば") to help users find this restaurant.',
+      of: [{ type: 'string' }],
+      options: {
+        layout: 'tags',
+      },
+    }),
     // Image fields (preserved from original)
     defineField({
       name: 'mainImage',
